@@ -18,8 +18,13 @@ public class Floor {
 		return rooms;
 	}
 	
+	public Room getRoom(int x, int y) {
+		return rooms[y][x];
+	}
+	
 	public void placePlayer(Player p) {
 		rooms[p.getY()][p.getX()].addOccupant(p);
+		p.setRoom(getRoom(p.getX(), p.getY()));
 	}
 
 	public void removePlayer(Player p) {

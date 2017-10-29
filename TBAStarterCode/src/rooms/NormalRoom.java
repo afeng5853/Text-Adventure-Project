@@ -1,15 +1,12 @@
 package rooms;
 
+import constants.Constants;
 import items.Item;
 import people.Person;
 import people.Player;
 
 public class NormalRoom extends Room {
 	// Constants
-	private static final int UP_DOOR = 0;
-	private static final int LEFT_DOOR = 1;
-	private static final int DOWN_DOOR = 3;
-	private static final int RIGHT_DOOR = 2;
 	
 	/**
 	 * Creates a normal room
@@ -29,7 +26,7 @@ public class NormalRoom extends Room {
 	 * @param door
 	 */
 	private static void addDoor(char[] room, int door) {
-		char doorType = door == UP_DOOR || door == DOWN_DOOR ? '—' : '|';
+		char doorType = ' ';
 		int map = (door * 2) + 1; // maps doorType to index in the char array;
 
 		room[map] = doorType;
@@ -63,17 +60,17 @@ public class NormalRoom extends Room {
 			roomGraphic[4] = 'P';
 		}
 		
-		if (doors[UP_DOOR]) {
-			addDoor(roomGraphic, UP_DOOR);
+		if (doors[Constants.UP]) {
+			addDoor(roomGraphic, Constants.UP);
 		}
-		if (doors[LEFT_DOOR]) {
-			addDoor(roomGraphic, LEFT_DOOR);
+		if (doors[Constants.LEFT]) {
+			addDoor(roomGraphic, Constants.LEFT);
 		}
-		if (doors[DOWN_DOOR]) {
-			addDoor(roomGraphic, DOWN_DOOR);
+		if (doors[Constants.DOWN]) {
+			addDoor(roomGraphic, Constants.DOWN);
 		}
-		if (doors[RIGHT_DOOR]) {
-			addDoor(roomGraphic, RIGHT_DOOR);
+		if (doors[Constants.RIGHT]) {
+			addDoor(roomGraphic, Constants.RIGHT);
 		}
 		
 		return String.valueOf(roomGraphic);

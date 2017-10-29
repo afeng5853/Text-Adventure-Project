@@ -71,25 +71,25 @@ public abstract class Person {
 	
 	public boolean canMove(int dir) {
 		if (dir == Constants.LEFT) {
-			if (x > 0) {
+			if (x > 0 && room.getDoors()[Constants.LEFT]) {
 				return true;
 			} else {
 				return false;
 			}
 		} else if (dir == Constants.RIGHT) {
-			if (x < Constants.WIDTH - 1) {
+			if (x < Constants.WIDTH - 1 && room.getDoors()[Constants.RIGHT])  {
 				return true;
 			} else {
 				return false;
 			}
-		} else if (dir == Constants.UP) {
-			if (y > 0) {
+		} else if (dir == Constants.UP ) {
+			if (y > 0 && room.getDoors()[Constants.UP]) {
 				return true;
 			} else {
 				return false;
 			}
 		} else if (dir == Constants.DOWN) {
-			if (y < Constants.LENGTH - 1) {
+			if (y < Constants.LENGTH - 1 && room.getDoors()[Constants.DOWN]) {
 				return true;
 			} else {
 				return false;
