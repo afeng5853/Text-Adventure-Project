@@ -2,10 +2,14 @@ package game;
 
 import java.util.Random;
 
+import Item.Item;
+import Item.Key;
+import Item.RubberChicken;
+import Item.Teleport;
+import Item.WaterSprayer;
+import game.Utilities.*;
 import floor.Floor;
-import items.Item;
 import people.Person;
-import rooms.Kitchen;
 import rooms.NormalRoom;
 import rooms.Room;
 
@@ -31,31 +35,31 @@ public class GenerationUtilities {
 		String hallway611 = "You are in a dark ominous hallway. You're not sure what lies ahead.";
 		String hallway23 = "You can see a glimmer of light outside the window, but you realize you'll never be able to get out";
 		
-		NormalRoom room1 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, new Item[] {}, 0, 0, "It feels as if the walls are crushing you.");
-		NormalRoom room2 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {}, 0, 0, hallway23);
-		NormalRoom room3 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, new Item[] {}, 0, 0, hallway23);
-		NormalRoom room4 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, new Item[] {}, 0, 0, "");
-		NormalRoom room5 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {}, 0, 0, "");
-		NormalRoom room6 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, new Item[] {}, 0, 0, hallway611);
-		NormalRoom room7 = new NormalRoom(new boolean[] {false, false, false, true}, new Person[] {}, new Item[] {}, 0, 0, "You see something interesting ahead.");
-		NormalRoom room8 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		NormalRoom room9 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, new Item[] {}, 0, 0, "");
-		NormalRoom room10 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, new Item[] {}, 0, 0, "");
-		NormalRoom room11 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, new Item[] {}, 0, 0, hallway611);
-		NormalRoom room12 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {}, 0, 0, "");
-		NormalRoom room13 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		NormalRoom room14 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		NormalRoom room15 = new NormalRoom(new boolean[] {true, true, false, true}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		Kitchen room16 = new Kitchen(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {}, 0, 0, kitchen);
-		Kitchen room17 = new Kitchen(new boolean[] {false, true, true, true}, new Person[] {}, new Item[] {}, 0, 0, kitchen);
-		NormalRoom room18 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		NormalRoom room19 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		NormalRoom room20 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, new Item[] {}, 0, 0, getGenericResponse());
-		Kitchen room21 = new Kitchen(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {}, 0, 0, kitchen);
-		Kitchen room22 = new Kitchen(new boolean[] {true, true, false, false}, new Person[] {}, new Item[] {}, 0, 0, kitchen);
-		NormalRoom room23 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {}, 0, 0, "You return back to the entrance, but the entrance seems locked");
-		NormalRoom room24 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {}, 0, 0, "");
-		NormalRoom room25 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {}, 0, 0, "");
+		NormalRoom room1 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "It feels as if the walls are crushing you.");
+		NormalRoom room2 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, hallway23);
+		NormalRoom room3 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, hallway23);
+		NormalRoom room4 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
+		NormalRoom room5 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
+		NormalRoom room6 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, hallway611);
+		NormalRoom room7 = new NormalRoom(new boolean[] {false, false, false, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "You see something interesting ahead.");
+		NormalRoom room8 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room9 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
+		NormalRoom room10 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
+		NormalRoom room11 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, hallway611);
+		NormalRoom room12 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
+		NormalRoom room13 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room14 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room15 = new NormalRoom(new boolean[] {true, true, false, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room16 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, kitchen);
+		NormalRoom room17 = new NormalRoom(new boolean[] {false, true, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, kitchen);
+		NormalRoom room18 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room19 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room20 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, getGenericResponse());
+		NormalRoom room21 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, kitchen);
+		NormalRoom room22 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, kitchen);
+		NormalRoom room23 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "You return back to the entrance, but the entrance seems locked");
+		NormalRoom room24 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
+		NormalRoom room25 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {createRandomItem(), createRandomItem()}, 0, 0, "");
 		
 		Room[][] groundFloor = { {room1, room2, room3, room4, room5},
 				     			 {room6, room7, room8, room9, room10},
@@ -68,11 +72,32 @@ public class GenerationUtilities {
 		return ground;
 	}
 	
-	/*
-	private static Room createRandomItems() {
-		
+	public static Item createRandomItem() {
+        Random rand = new Random();
+        int x = rand.nextInt(4);
+
+        switch (x) 
+        {
+            case 0:
+                return new Key("floor1", 1, rand.nextInt(3) + 1, 10);
+            case 1:
+                return (Item) new RubberChicken("Rubber Chicken 1.0", 10, 1);
+            case 2:
+                return new Teleport("Teleport", 3 , rand.nextInt(3) + 1, random());
+            case 3:
+                return (Item) new WaterSprayer("Water Sprayer 1.0", 5, 1);
+            default:
+                return new Key("floor1", 1, rand.nextInt(3) + 1, 10);
+        }
 	}
-	*/
 	
+	public static boolean random() {
+		Random i = new Random();
+		int val = i.nextInt(1)
+			if (val == 0) {
+				return false;
+			}
+			return true;
+		}
+	}
 	
-}

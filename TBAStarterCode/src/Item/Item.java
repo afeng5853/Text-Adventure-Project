@@ -1,4 +1,4 @@
-package items;
+package Item;
 
 import java.util.Random;
 
@@ -9,9 +9,8 @@ public abstract class Item {
 	private int quantity;
 	private int upgrade = 2;
 	
-	public Item(String name, String type, int value, int quantity) {
+	public Item(String name, int value, int quantity) {
 		this.setName(name);
-		this.setType(type);
 		this.setValue(value);
 		this.setQuantity(quantity);
 	}
@@ -26,7 +25,7 @@ public abstract class Item {
 	
 	public int useItem(int count) {
 		if (count > upgrade) {
-			setValue(getValue + count);
+			setValue(getValue() + count);
 			upgrade += upgrade;
 			setQuantity(0);
 		}
@@ -57,7 +56,7 @@ public abstract class Item {
 		return value;
 	}
 	
-	public void setBonus(int value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 	

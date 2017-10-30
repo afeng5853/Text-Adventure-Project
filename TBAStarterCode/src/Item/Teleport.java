@@ -1,16 +1,15 @@
-package items;
+package Item;
 import java.util.*;
 
-public class Weapons implements Items{
+public class Teleport extends Consumables{
 	
 	private boolean broken; 
 	
-	public Key(String name, String type, int value, int quantity, boolean broken) {
-		super(name, type, value, quantity);
+	public Teleport(String name, int value, int quantity, boolean broken) {
+		super(name, value, quantity);
 		this.broken = broken;
 	}
 	
-	@Overload
 	public int useItem(boolean broken) {
 		Random rand = new Random();
 		int x = rand.nextInt(1);
@@ -22,16 +21,16 @@ public class Weapons implements Items{
 		}
 	}
 	
-	public String getBroken() {
+	public boolean getBroken() {
 		return broken;
 	}
 	
-	public void setBroken(String broken) {
+	public void setBroken(boolean broken) {
 		this.broken = broken;
 	}
 	
 	@Override
 	public String toString() {
-		return "You have" + this.quantity + "teleporters";
+		return "You have" + getQuantity() + "teleporters";
 	}
 }
