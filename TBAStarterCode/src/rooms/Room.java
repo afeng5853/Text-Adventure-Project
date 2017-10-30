@@ -3,7 +3,7 @@ package rooms;
 import people.Person;
 import people.Player;
 import utilities.util;
-import items.Item;
+import Item.Item;
 
 import java.util.Arrays;
 

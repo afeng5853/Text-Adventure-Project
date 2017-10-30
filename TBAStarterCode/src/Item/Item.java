@@ -64,7 +64,7 @@ public abstract class Item {
 		return quantity;
 	}
 	
-	public void setQuantity(int quantity)) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 }

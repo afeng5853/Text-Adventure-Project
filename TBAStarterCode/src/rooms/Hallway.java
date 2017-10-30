@@ -1,7 +1,7 @@
 package rooms;
 
 import people.Person;
-import items.Item;
+import Item.Item;
 
 
 public class Hallway extends Room {
@@ -51,6 +51,12 @@ public class Hallway extends Room {
     	
     	return response;
     }
+
+	@Override
+	public String parseResponse(String response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
     

@@ -1,6 +1,6 @@
 package rooms;
 
-import items.Item;
+import Item.Item;
 import people.Person;
 import utilities.util;
 
