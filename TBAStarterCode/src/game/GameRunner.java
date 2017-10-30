@@ -55,6 +55,8 @@ public class GameRunner {
         		   me.move(Constants.UP);
         		   
         		   floor.placePlayer(me);
+        		   floor.printMap();
+                   System.out.println(me.getRoom().getDesc());
         	   }
            } else if (util.findKeyword(response, "left", 0) != -1) {
         	   if (me.canMove(Constants.LEFT)) {
@@ -62,6 +64,8 @@ public class GameRunner {
         		   me.move(Constants.LEFT);
         		   
         		   floor.placePlayer(me);
+        		   floor.printMap();
+                   System.out.println(me.getRoom().getDesc());
         	   }
            } else if (util.findKeyword(response, "right", 0) != -1) {
         	   if (me.canMove(Constants.RIGHT)) {
@@ -69,6 +73,8 @@ public class GameRunner {
         		   me.move(Constants.RIGHT);
         		   
         		   floor.placePlayer(me);
+        		   floor.printMap();
+                   System.out.println(me.getRoom().getDesc());
         	   }
            } else if (util.findKeyword(response, "down", 0) != -1) {
         	   if (me.canMove(Constants.DOWN)) {
@@ -76,12 +82,13 @@ public class GameRunner {
         		   me.move(Constants.DOWN);
         		   
         		   floor.placePlayer(me);
+        		   floor.printMap();
+                   System.out.println(me.getRoom().getDesc());
         	   }
            } else {
         	   System.out.println(me.getRoom().parseResponse(response));
            }
-           floor.printMap();
-           System.out.println(me.getRoom().getDesc());
+           
         }
 		in.close();
     }
