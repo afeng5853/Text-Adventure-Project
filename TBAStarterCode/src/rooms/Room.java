@@ -1,9 +1,13 @@
 package rooms;
 
 import people.Person;
+import people.Player;
+import utilities.util;
 import items.Item;
 
 import java.util.Arrays;
+
+import constants.Constants;
 
 public abstract class Room {
 
@@ -29,6 +33,15 @@ public abstract class Room {
         return occupants;
     }
 
+    public boolean hasPlayer() {
+		Person[] occupants = this.getOccupants();
+		for (Person p : occupants) {
+			if (p instanceof Player) {
+				return true;
+			}
+		}
+		return false;
+	}
     
     public void setOccupants(Person[] occupants) {
         this.occupants = occupants;
@@ -75,9 +88,61 @@ public abstract class Room {
 		this.desc = desc;
 	}
 
-    @Override
-    public abstract String toString();
+	/**
+	 * places the door character in the according position of the room
+	 * @param room
+	 * @param door
+	 */
+	private static void addDoor(char[] room, int door) {
+		char doorType = ' ';
+		int map = (door * 2) + 1; // maps doorType to index in the char array;
 
+		room[map] = doorType;
+	}
+	
+	public String parseBasicResponses(String response) {
+		String[] searchKeywords = {"examine", "search"};
+		if (util.findKeyword(response, searchKeywords ,0) != -1) {
+			return "You find nothing.";
+		}
+		return response;
+	}
+	
+	public abstract String parseResponse(String response);
+	
+	@Override
+	public String toString() {
+		// top : 0:1
+		// left : 1:3
+		// right : 2:5
+		// down : 3:7
+		
+		// char array to allow mutable elements
+		char[] roomGraphic = ("###"
+				 		   +  "# #"
+				 		   +  "###").toCharArray();
+		boolean[] doors = this.getDoors();
+		
+		// if this room has a player 
+		if (this.hasPlayer()) {
+			roomGraphic[4] = 'P';
+		}
+		
+		if (doors[Constants.UP]) {
+			addDoor(roomGraphic, Constants.UP);
+		}
+		if (doors[Constants.LEFT]) {
+			addDoor(roomGraphic, Constants.LEFT);
+		}
+		if (doors[Constants.DOWN]) {
+			addDoor(roomGraphic, Constants.DOWN);
+		}
+		if (doors[Constants.RIGHT]) {
+			addDoor(roomGraphic, Constants.RIGHT);
+		}
+		
+		return String.valueOf(roomGraphic);
+	}
 }
 
 

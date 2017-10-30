@@ -11,6 +11,8 @@ import area.AbandonedHouse;
 import constants.Constants;
 import floor.Floor;
 
+import utilities.util;
+
 public class GameRunner {
 
 	private static void printIntro() {
@@ -34,15 +36,9 @@ public class GameRunner {
     public static void main (String[] args)
     {        
         Floor floor = GenerationUtilities.createFloor();
-        //floor.printMap();
-
-        //System.out.println("***********************");
         Player me = new Player("Alex", "Feng", 2, 4);
         floor.placePlayer(me);
         me.setRoom(floor.getRoom(me.getX(), me.getY()));
-        //floor.printMap();
-        //me.move(Constants.LEFT);
-        
         printIntro();
         
         boolean gameOn = true;
@@ -51,37 +47,39 @@ public class GameRunner {
         while(gameOn)
         {
            System.out.println("What would you like to do?");
-           String dir = in.nextLine();
+           String response = in.nextLine();
            
-           if (dir.equals("up")) {
+           if (util.findKeyword(response, "up", 0) != -1) {
         	   if (me.canMove(Constants.UP)) {
         		   floor.removePlayer(me);
         		   me.move(Constants.UP);
         		   
         		   floor.placePlayer(me);
         	   }
-           } else if (dir.equals("left")) {
+           } else if (util.findKeyword(response, "left", 0) != -1) {
         	   if (me.canMove(Constants.LEFT)) {
         		   floor.removePlayer(me);
         		   me.move(Constants.LEFT);
         		   
         		   floor.placePlayer(me);
         	   }
-           } else if (dir.equals("right")) {
+           } else if (util.findKeyword(response, "right", 0) != -1) {
         	   if (me.canMove(Constants.RIGHT)) {
         		   floor.removePlayer(me);
         		   me.move(Constants.RIGHT);
         		   
         		   floor.placePlayer(me);
         	   }
-           } else if (dir.equals("down")) {
+           } else if (util.findKeyword(response, "down", 0) != -1) {
         	   if (me.canMove(Constants.DOWN)) {
         		   floor.removePlayer(me);
         		   me.move(Constants.DOWN);
         		   
         		   floor.placePlayer(me);
         	   }
-           } 
+           } else {
+        	   System.out.println(me.getRoom().parseResponse(response));
+           }
            floor.printMap();
            System.out.println(me.getRoom().getDesc());
         }
