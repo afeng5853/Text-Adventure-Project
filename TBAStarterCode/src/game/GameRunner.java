@@ -1,6 +1,6 @@
 package game;
 
-import items.Item;
+//import items.Item;
 import rooms.*;
 import people.Person;
 import people.Player;
@@ -13,6 +13,24 @@ import floor.Floor;
 
 public class GameRunner {
 
+	private static void printIntro() {
+		System.out.println("                           \n"
+				+ "                                                /\\\n"
+				+ "                             _                 /  \\  /\\\n"
+				+ "                    ________[_]________      /\\/    \\/  \\\n"
+				+ "           /\\      /\\        ______    \\    /   /\\/\\  /\\/\\\n"
+				+ "          /  \\    //_\\       \\    /\\    \\  /\\/\\/    \\/    \\\n"
+				+ "   /\\    / /\\/\\  //___\\       \\__/  \\    \\/\n"
+				+ "  /  \\  /\\/    \\//_____\\       \\ |[]|     \\\n"
+				+ " /\\/\\/\\/       //_______\\       \\|__|      \\\n"
+				+ "/      \\      /XXXXXXXXXX\\                  \\\n"
+				+ "        \\    /_I_II  I__I_\\__________________\\\n"
+				+ "               I_I|  I__I_____[]_|_[]_____I\n"
+				+ "               I_II  I__I_____[]_|_[]_____I\n"
+				+ "               I II__I  I     XXXXXXX     I\n"
+				+ "            ~~~~~\"   \"~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		System.out.println("You have discovered an abandoned house in the middle of nowhere.");
+	}
     public static void main (String[] args)
     {        
         Floor floor = GenerationUtilities.createFloor();
@@ -20,30 +38,16 @@ public class GameRunner {
 
         //System.out.println("***********************");
         Player me = new Player("Alex", "Feng", 2, 4);
-        
         floor.placePlayer(me);
         me.setRoom(floor.getRoom(me.getX(), me.getY()));
         //floor.printMap();
         //me.move(Constants.LEFT);
         
+        printIntro();
+        
         boolean gameOn = true;
         Scanner in = new Scanner(System.in);
-        System.out.println("                           \n"
-+ "                                                /\\\n"
-+ "                             _                 /  \\  /\\\n"
-+ "                    ________[_]________      /\\/    \\/  \\\n"
-+ "           /\\      /\\        ______    \\    /   /\\/\\  /\\/\\\n"
-+ "          /  \\    //_\\       \\    /\\    \\  /\\/\\/    \\/    \\\n"
-+ "   /\\    / /\\/\\  //___\\       \\__/  \\    \\/\n"
-+ "  /  \\  /\\/    \\//_____\\       \\ |[]|     \\\n"
-+ " /\\/\\/\\/       //_______\\       \\|__|      \\\n"
-+ "/      \\      /XXXXXXXXXX\\                  \\\n"
-+ "        \\    /_I_II  I__I_\\__________________\\\n"
-+ "               I_I|  I__I_____[]_|_[]_____I\n"
-+ "               I_II  I__I_____[]_|_[]_____I\n"
-+ "               I II__I  I     XXXXXXX     I\n"
-+ "            ~~~~~\"   \"~~~~~~~~~~~~~~~~~~~~~~~~\n");
-        System.out.println("You have discovered an abandoned house in the middle of nowhere.");
+        
         while(gameOn)
         {
            System.out.println("What would you like to do?");
@@ -78,8 +82,8 @@ public class GameRunner {
         		   floor.placePlayer(me);
         	   }
            } 
-           
            floor.printMap();
+           System.out.println(me.getRoom().getDesc());
         }
 		in.close();
     }

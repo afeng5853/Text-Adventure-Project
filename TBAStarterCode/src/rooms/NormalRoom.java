@@ -6,7 +6,6 @@ import people.Person;
 import people.Player;
 
 public class NormalRoom extends Room {
-	// Constants
 	
 	/**
 	 * Creates a normal room
@@ -15,9 +14,10 @@ public class NormalRoom extends Room {
 	 * @param items
 	 * @param x
 	 * @param y
+	 * @param desc
 	 */
-	public NormalRoom(boolean[] doors, Person[] occupants, Item[] items, int x, int y) {
-		super(doors, occupants, items, x, y);
+	public NormalRoom(boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc) {
+		super(doors, occupants, items, x, y, desc);
 	}
 
 	/**
@@ -75,8 +75,6 @@ public class NormalRoom extends Room {
 		
 		return String.valueOf(roomGraphic);
 	}
-
-	
 	
 	
 }

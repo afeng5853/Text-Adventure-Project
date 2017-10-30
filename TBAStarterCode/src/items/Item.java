@@ -1,13 +1,15 @@
 package items;
 
-public abstract class Items {
+import java.util.Random;
+
+public abstract class Item {
 	private String name;
 	private String type;
 	private int value;
 	private int quantity;
 	private int upgrade = 2;
 	
-	public Items(String name, String type, int value, int quantity) {
+	public Item(String name, String type, int value, int quantity) {
 		this.setName(name);
 		this.setType(type);
 		this.setValue(value);
@@ -35,35 +37,35 @@ public abstract class Items {
 		return "You have" + this.quantity + "items";
 	}
 		
-		public String getName() {
-			return name;
-		}
-		
-		public void setName(String name) {
-			this.name = name;
-		}
-		
-		public String getType() {
-			return type;
-		}
-		
-		public void setType(String type) {
-			this.type = type;
-		}
-		
-		public int getValue() {
-			return value;
-		}
-		
-		public void setBonus(int value) {
-			this.value = value;
-		}
-		
-		public int getQuantity() {
-			return quantity;
-		}
-		
-		public void setQuantity(int quantity)) {
-			this.quantity = quantity;
-		}
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+	
+	public void setBonus(int value) {
+		this.value = value;
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public void setQuantity(int quantity)) {
+		this.quantity = quantity;
+	}
 }

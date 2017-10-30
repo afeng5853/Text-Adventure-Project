@@ -15,31 +15,31 @@ public class GenerationUtilities {
 		 *  [16] [17] [18] [19] [20] 
 		 *  [21] [22] [23] [24] [25] 
 		 */
-		NormalRoom room1 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room2 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room3 = new NormalRoom(new boolean[] {false, true, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room4 = new NormalRoom(new boolean[] {false, true, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room5 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room6 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room7 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room8 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room9 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room10 = new NormalRoom(new boolean[] {true, true, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room11 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room12 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room13 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room14 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room15 = new NormalRoom(new boolean[] {true, true, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room16 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room17 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room18 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room19 = new NormalRoom(new boolean[] {false, true, true, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room20 = new NormalRoom(new boolean[] {true, true, false, true}, new Person[] {}, null, 0, 0);
-		NormalRoom room21 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room22 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room23 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room24 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, null, 0, 0);
-		NormalRoom room25 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, null, 0, 0);
+		NormalRoom room1 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room2 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room3 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room4 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room5 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room6 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room7 = new NormalRoom(new boolean[] {false, false, false, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room8 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room9 = new NormalRoom(new boolean[] {true, true, true, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room10 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room11 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, null, 0, 0, "As you walk through the hallway, a strike of fear suddenly hits you");
+		NormalRoom room12 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room13 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room14 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room15 = new NormalRoom(new boolean[] {true, true, false, true}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room16 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, null, 0, 0, "Around you, you see dead rats on the floor of the kitchen");
+		NormalRoom room17 = new NormalRoom(new boolean[] {false, true, true, true}, new Person[] {}, null, 0, 0, "Around you, you see dead rats on the floor of the kitchen");
+		NormalRoom room18 = new NormalRoom(new boolean[] {true, true, true, true}, new Person[] {}, null, 0, 0, "You sense something is wrong.");
+		NormalRoom room19 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room20 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room21 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, null, 0, 0, "Around you, you see dead rats on the floor of the kitchen");
+		NormalRoom room22 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, null, 0, 0, "Around you, you see dead rats on the floor of the kitchen");
+		NormalRoom room23 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, null, 0, 0, "You return back to the entrance, but the entrance is locked");
+		NormalRoom room24 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, null, 0, 0, "");
+		NormalRoom room25 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, null, 0, 0, "");
 		
 		Room[][] groundFloor = { {room1, room2, room3, room4, room5},
 				     			 {room6, room7, room8, room9, room10},

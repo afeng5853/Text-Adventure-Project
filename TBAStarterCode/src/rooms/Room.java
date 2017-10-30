@@ -12,8 +12,9 @@ public abstract class Room {
     private Item[] items;
     public boolean explored;
     private int x, y;
+    private String desc;
 
-    public Room (boolean[] doors, Person[] occupants, Item[] items, int x, int y)
+    public Room (boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc)
     {
     	this.x = x;
     	this.y = y;
@@ -21,6 +22,7 @@ public abstract class Room {
         this.occupants = occupants;
         this.items = items;
         this.explored = false;
+        this.desc = desc;
     }
 
     public Person[] getOccupants() {
@@ -65,10 +67,17 @@ public abstract class Room {
     	return y;
     }
     
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
     @Override
     public abstract String toString();
 
-    
 }
 
 
