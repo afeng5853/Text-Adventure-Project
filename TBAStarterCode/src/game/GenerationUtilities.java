@@ -4,6 +4,9 @@ import java.util.Random;
 
 import floor.Floor;
 import Item.Item;
+import Item.Orange;
+import Item.RubberChicken;
+import Item.TeleportPill;
 import people.Person;
 import rooms.Kitchen;
 import rooms.NormalRoom;
@@ -18,6 +21,22 @@ public class GenerationUtilities {
 		return responses[idx];
 	}
 	
+	public static Item randomItem() {
+		Item[] items = {new Orange(), new RubberChicken(), new TeleportPill()};
+		Random rand = new Random();
+		int idx = rand.nextInt(items.length);
+		return items[idx];
+	}
+	
+	public static void placeRandomItems(Floor f) {
+		for (Room[] row : f.getRooms()) {
+			for (Room room : row) {
+				if (Math.random() < 0.2) {
+					room.addItem(randomItem());
+				}
+			}
+		}
+	}
 	
 	public static Floor createFloor() {
 		/*

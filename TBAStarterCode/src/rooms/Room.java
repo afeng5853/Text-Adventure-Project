@@ -29,6 +29,12 @@ public abstract class Room {
         this.desc = desc;
     }
 
+    public void addItem(Item i)
+    {
+        this.items = Arrays.copyOf(this.items,this.items.length+1);
+        this.items[this.items.length-1] = i;
+    }
+    
     public Person[] getOccupants() {
         return occupants;
     }
@@ -100,15 +106,29 @@ public abstract class Room {
 		room[map] = doorType;
 	}
 	
-	public String parseBasicResponses(String response) {
+	public String parseBasicResponses(Player p, String response) {
 		String[] searchKeywords = {"examine", "search"};
+		String[] pickUpKeywords = {"take", "pick up", "get"};
 		if (util.findKeyword(response, searchKeywords ,0) != -1) {
-			return "You find nothing.";
+			if (this.items.length > 0 ) {
+				StringBuilder build = new StringBuilder();
+				for (Item i : items) {
+					build.append(i.toString() + " ");
+				}
+				return "You find " + build.toString();
+			} else {
+				return "You find nothing.";
+			}
+		} else if (util.findKeyword(response, pickUpKeywords) != -1){
+			if (this.items.length > 0) {
+				p.addToInventory(this.items[0]);
+				return "You picked up " + this.items[0];
+			}
 		}
 		return response;
 	}
 	
-	public abstract String parseResponse(String response);
+	public abstract String parseResponse(Player p, String response);
 	
 	@Override
 	public String toString() {

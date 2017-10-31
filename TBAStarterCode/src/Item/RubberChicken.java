@@ -1,17 +1,26 @@
 package Item;
 import java.util.*;
 
-public class RubberChicken extends Weapons {
-	private String name;
-	private int value;
-	private int quantity;
+import people.Person;
+
+public class RubberChicken extends Weapon {
+	public final static int STRENGTH = 1;
 	
-	public RubberChicken(String name, int value, int quantity) {
-		super(name, value, quantity);
+	public RubberChicken() {
+		super(STRENGTH);
+	}
+	
+	public RubberChicken(Person p) {
+		super(p, STRENGTH);
 	}
 	
 	@Override
 	public String toString() {
-		return "You have" + getQuantity() + "rubber chickens";
+		return "Rubber Chicken";
+	}
+
+	@Override
+	public void useItem() {
+		//TODO: this.getPerson().attack(this.getStrength());
 	}
 }

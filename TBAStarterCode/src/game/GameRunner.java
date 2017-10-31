@@ -15,6 +15,100 @@ import utilities.util;
 
 public class GameRunner {
 
+	private static int state = 0;
+	private final static int INTRO = 0;
+	private final static int IN_PLAY = 1;
+	
+	
+    public static void main (String[] args)
+    {        
+        Floor floor = GenerationUtilities.createFloor();
+        GenerationUtilities.placeRandomItems(floor);
+        Player me = new Player("Alex", "Feng", 2, 4, 10);
+        floor.placePlayer(me);
+        me.setRoom(floor.getRoom(me.getX(), me.getY()));
+        printIntro();
+        
+        boolean gameOn = true;
+        Scanner in = new Scanner(System.in);
+        
+        while(gameOn)
+        {
+           System.out.println("What would you like to do?");
+           String response = in.nextLine();
+           
+           if (state == INTRO) {
+        	   String introResponse = parseIntroResponse(response);
+        	   if (introResponse.equals("~ENTERED")) {
+        		   state = IN_PLAY;
+        		   floor.printMap();
+        		   System.out.println("You hear the door suddenly slam behind you. You are stuck.");
+        		   continue;
+        	   } else {
+        		   System.out.println(introResponse);
+        	   }
+           }
+           
+           if (state == IN_PLAY) {
+        	   if (util.findKeyword(response, "up") != -1) {
+            	   if (me.canMove(Constants.UP)) {
+            		   floor.removePlayer(me);
+            		   me.move(Constants.UP);
+            		   
+            		   floor.placePlayer(me);
+            		   floor.printMap();
+                       System.out.println(me.getRoom().getDesc());
+            	   }
+               } else if (util.findKeyword(response, "left") != -1) {
+            	   if (me.canMove(Constants.LEFT)) {
+            		   floor.removePlayer(me);
+            		   me.move(Constants.LEFT);
+            		   
+            		   floor.placePlayer(me);
+            		   floor.printMap();
+                       System.out.println(me.getRoom().getDesc());
+            	   }
+               } else if (util.findKeyword(response, "right") != -1) {
+            	   if (me.canMove(Constants.RIGHT)) {
+            		   floor.removePlayer(me);
+            		   me.move(Constants.RIGHT);
+            		   
+            		   floor.placePlayer(me);
+            		   floor.printMap();
+                       System.out.println(me.getRoom().getDesc());
+            	   }
+               } else if (util.findKeyword(response, "down") != -1) {
+            	   if (me.canMove(Constants.DOWN)) {
+            		   floor.removePlayer(me);
+            		   me.move(Constants.DOWN);
+            		   
+            		   floor.placePlayer(me);
+            		   floor.printMap();
+                       System.out.println(me.getRoom().getDesc());
+            	   }
+               } else {
+            	   System.out.println(me.getRoom().parseResponse(me, response));
+               }
+           }
+           if (me.getHp() <= 0)  {
+        	   printDeath();
+        	   System.out.println("You've died. Game over.");
+        	   gameOn = false;
+           }
+           
+        }
+		in.close();
+    }
+    
+	private static String parseIntroResponse(String statement) {
+		String response = "Nothing happens.";
+		if (util.findKeyword(statement, "enter") != -1 || 
+			util.findKeyword(statement, "go in") != -1) {
+			response = "~ENTERED";
+		}
+		return response;
+	}
+	
 	private static void printIntro() {
 		System.out.println("                           \n"
 				+ "                                                /\\\n"
@@ -33,66 +127,35 @@ public class GameRunner {
 				+ "            ~~~~~\"   \"~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		System.out.println("You have discovered an abandoned house in the middle of nowhere.");
 	}
-    public static void main (String[] args)
-    {        
-        Floor floor = GenerationUtilities.createFloor();
-        Player me = new Player("Alex", "Feng", 2, 4);
-        floor.placePlayer(me);
-        me.setRoom(floor.getRoom(me.getX(), me.getY()));
-        printIntro();
-        
-        boolean gameOn = true;
-        Scanner in = new Scanner(System.in);
-        
-        while(gameOn)
-        {
-           System.out.println("What would you like to do?");
-           String response = in.nextLine();
-           
-           if (util.findKeyword(response, "up", 0) != -1) {
-        	   if (me.canMove(Constants.UP)) {
-        		   floor.removePlayer(me);
-        		   me.move(Constants.UP);
-        		   
-        		   floor.placePlayer(me);
-        		   floor.printMap();
-                   System.out.println(me.getRoom().getDesc());
-        	   }
-           } else if (util.findKeyword(response, "left", 0) != -1) {
-        	   if (me.canMove(Constants.LEFT)) {
-        		   floor.removePlayer(me);
-        		   me.move(Constants.LEFT);
-        		   
-        		   floor.placePlayer(me);
-        		   floor.printMap();
-                   System.out.println(me.getRoom().getDesc());
-        	   }
-           } else if (util.findKeyword(response, "right", 0) != -1) {
-        	   if (me.canMove(Constants.RIGHT)) {
-        		   floor.removePlayer(me);
-        		   me.move(Constants.RIGHT);
-        		   
-        		   floor.placePlayer(me);
-        		   floor.printMap();
-                   System.out.println(me.getRoom().getDesc());
-        	   }
-           } else if (util.findKeyword(response, "down", 0) != -1) {
-        	   if (me.canMove(Constants.DOWN)) {
-        		   floor.removePlayer(me);
-        		   me.move(Constants.DOWN);
-        		   
-        		   floor.placePlayer(me);
-        		   floor.printMap();
-                   System.out.println(me.getRoom().getDesc());
-        	   }
-           } else {
-        	   System.out.println(me.getRoom().parseResponse(response));
-           }
-           
-        }
-		in.close();
-    }
 
+	private static void printDeath() {
+		System.out.println("                uuuuuuu\n"
++ "             uu$$$$$$$$$$$uu\n"
++ "          uu$$$$$$$$$$$$$$$$$uu\n"
++ "         u$$$$$$$$$$$$$$$$$$$$$u\n"
++ "        u$$$$$$$$$$$$$$$$$$$$$$$u\n"
++ "       u$$$$$$$$$$$$$$$$$$$$$$$$$u\n"
++ "       u$$$$$$$$$$$$$$$$$$$$$$$$$u\n"
++ "       u$$$$$$\"   \"$$$\"   \"$$$$$$u\n"
++ "       \"$$$$\"      u$u       $$$$\"\n"
++ "        $$$u       u$u       u$$$\n"
++ "        $$$u      u$$$u      u$$$\n"
++ "        \"$$$$uu$$$   $$$uu$$$$\"\n"
++ "          \"$$$$$$$\"   \"$$$$$$$\"\n"
++ "            u$$$$$$$u$$$$$$$u\n"
++ "             u$\"$\"$\"$\"$\"$\"$u\n"
++ "  uuu        $$u$ $ $ $ $u$$       uuu\n"
++ " u$$$$        $$$$$u$u$u$$$       u$$$$\n"
++ "  $$$$$uu      \"$$$$$$$$$\"     uu$$$$$$\n"
++ "u$$$$$$$$$$$uu    \"\"\"\"\"    uuuu$$$$$$$$$$\n"
++ "$$$$\"\"\"$$$$$$$$$$uuu   uu$$$$$$$$$\"\"\"$$$\"\n"
++ " \"\"\"      \"\"$$$$$$$$$$$uu \"\"$\"\"\"\n"
++ "           uuuu \"\"$$$$$$$$$$uuu\n"
++ "  u$$$uuu$$$$$$$$$uu \"\"$$$$$$$$$$$uuu$$$\n"
++ "  $$$$$$$$$$\"\"\"\"           \"\"$$$$$$$$$$$\"\n"
++ "   \"$$$$$\"                      \"\"$$$$\"\"\n"
++ "     $$$\"                         $$$$\"\n");
+	}
 }
 
 

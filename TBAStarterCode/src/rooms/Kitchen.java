@@ -2,6 +2,7 @@ package rooms;
 
 import Item.Item;
 import people.Person;
+import people.Player;
 import utilities.util;
 
 public class Kitchen extends Room {
@@ -12,16 +13,27 @@ public class Kitchen extends Room {
 	}
 
 	@Override
-	public String parseResponse(String response_) {
-		String response = this.parseBasicResponses(response_);
-		if (util.findKeyword(response, "eat", 0) != -1) {
+	public String parseResponse(Player p, String response_) {
+		String response = this.parseBasicResponses(p, response_);
+		if (util.findKeyword(response, "eat") != -1 &&
+				(util.findKeyword(response, "it") != -1 ||
+				util.findKeyword(response, "rat") != -1 || 
+				util.findKeyword(response, "rats") != -1)) {
 			if (!ratsEaten) {
 				response = "You eat the corpses of dead rats and feel sick.";
+				p.addHp(-1);
 				this.setDesc("You regret eating those rats.");
 				ratsEaten = true;
 			} else {
 				response = "You start to become crazy as you cannot find any more rats";
+				p.addHp(-1);
 			}
+		}
+		if (!ratsEaten && response.equals("You find nothing.")) {
+			response = "Nothing but dead rats.";
+		}
+		if (response.equals(response_)) {
+			return "";
 		}
 		return response;
 	}

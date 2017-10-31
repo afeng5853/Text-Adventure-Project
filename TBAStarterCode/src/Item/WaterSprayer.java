@@ -7,11 +7,16 @@ public class WaterSprayer extends Weapons {
 	private int quantity;
 	
 	public WaterSprayer(String name, int value, int quantity) {
-		super(name, value, quantity);
 	}
 	
 	@Override
 	public String toString() {
-		return "You have" + getQuantity() + "water sprayers";
+		return "";
+	}
+
+	@Override
+	public void useItem() {
+		// TODO Auto-generated method stub
+		
 	}
 }

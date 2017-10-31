@@ -1,16 +1,33 @@
 package Item;
 
-public class Consumables extends Item{
-	private String name;
-	private int value;
-	private int quantity;
+import people.Person;
+
+public abstract class Consumables implements Item {
+	private Person person;
+	private int hp;
 	
-	public Consumables(String name, int value, int quantity) {
-		super(name, value, quantity);
+	public Consumables(int hp) {
+		this.setHp(hp);
 	}
 	
-	@Override
-	public String toString() {
-		return "You have" + getQuantity() + "consumables";
+	public Consumables(Person p, int hp) {
+		this.person = p;
+		this.setHp(hp);
 	}
+
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	
 }

@@ -1,6 +1,9 @@
 package people;
 
 
+import java.util.ArrayList;
+
+import Item.Item;
 import constants.Constants;
 import rooms.Room;
 
@@ -10,12 +13,16 @@ public abstract class Person {
 	private Room room;
 	private int x;
 	private int y;
+	private ArrayList<Item> inventory;
+	private int hp;
 	
-	public Person(String firstName, String lastName, int x, int y) {
+	public Person(String firstName, String lastName, int x, int y, int hp) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setX(x);
 		this.setY(y);
+		this.inventory = new ArrayList<>();
+		this.setHp(hp);
 	}
 	
 	public abstract String getGreeting();
@@ -69,6 +76,14 @@ public abstract class Person {
 		this.y = y;
 	}
 	
+	public void addToInventory(Item i) {
+		this.inventory.add(i);
+	}
+	
+	public void addHp(int amount) {
+		this.hp += amount;
+	}
+	
 	public boolean canMove(int dir) {
 		if (dir == Constants.LEFT) {
 			if (x > 0 && room.getDoors()[Constants.LEFT]) {
@@ -119,6 +134,14 @@ public abstract class Person {
 		} else {
 			System.out.println("????????error??????????");
 		}
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 	
 	

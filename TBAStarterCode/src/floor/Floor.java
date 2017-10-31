@@ -13,7 +13,12 @@ public class Floor {
 		this.length = rooms.length;
 		this.width = rooms[0].length;
 	}
-
+	
+	//TODO: generate random floor
+	public Floor() {
+		
+	}
+	
 	public Room[][] getRooms() {
 		return rooms;
 	}
