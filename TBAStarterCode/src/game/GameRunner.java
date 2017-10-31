@@ -13,6 +13,14 @@ import floor.Floor;
 
 import utilities.util;
 
+/**
+ * Initializes the text adventure game by creating a player and the game board.
+ * Additionally, allows the player to move around the game board
+ * @author Alex Feng
+ * @author Raymond Cheung 
+ * @since 10/30/17
+ */
+
 public class GameRunner {
 
 	private static void printIntro() {
@@ -33,6 +41,7 @@ public class GameRunner {
 				+ "            ~~~~~\"   \"~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		System.out.println("You have discovered an abandoned house in the middle of nowhere.");
 	}
+	
     public static void main (String[] args)
     {        
         Floor floor = GenerationUtilities.createFloor();
@@ -92,7 +101,6 @@ public class GameRunner {
         }
 		in.close();
     }
-
 }
 
 

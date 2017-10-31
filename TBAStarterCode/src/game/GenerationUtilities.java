@@ -9,7 +9,20 @@ import rooms.Kitchen;
 import rooms.NormalRoom;
 import rooms.Room;
 
+/**
+ * Utilities to create the game.
+ * @author Alex Feng
+ * @author Raymond Cheung 
+ * @since 10/30/17
+ */
+
 public class GenerationUtilities {
+	
+	/**
+     * Selects a random response, from an array, to be used to describe a situation
+     * @return 		string containing the randomly generated response
+     */
+	
 	private static String getGenericResponse() {
 		String[] responses = {"You sense something is wrong", "You hear absolutely nothing.", "You feel hopeless as you soon realize that you can never escape.", 
 				"You feel something approaching.", "The floor creaks as you walk by"};
@@ -18,6 +31,10 @@ public class GenerationUtilities {
 		return responses[idx];
 	}
 	
+	/**
+     * Creates a floor using a 5 by 5 array and populates the array with rooms. 
+     * @return	ground	the generated floor
+     */
 	
 	public static Floor createFloor() {
 		/*
@@ -67,12 +84,5 @@ public class GenerationUtilities {
 		
 		return ground;
 	}
-	
-	/*
-	private static Room createRandomItems() {
-		
-	}
-	*/
-	
 	
 }

@@ -2,25 +2,43 @@ package Item;
 
 import java.util.Random;
 
+/**
+ * Used to create the various items in the game.
+ * @author Alex Feng
+ * @author Raymond Cheung 
+ * @since 10/30/17
+ */
+
 public abstract class Item {
+	
+	//fields
 	private String name;
 	private String type;
 	private int value;
 	private int quantity;
 	private int upgrade = 2;
 	
+	//constructor
 	public Item(String name, int value, int quantity) {
 		this.setName(name);
 		this.setValue(value);
 		this.setQuantity(quantity);
 	}
 	
+	//methods
+	
+	
+	/**
+     * Selects a random response, from an array, to be used to describe a situation
+     * @return	hit		the valu
+     */
+	
 	public int useItem() {
 		Random rand = new Random();
 		int High = getValue();
 		int Low = 1;
-		int x = rand.nextInt(High-Low) + Low;
-		return x;
+		int hit = rand.nextInt(High-Low) + Low;
+		return hit;
 	}
 	
 	public int useItem(int count) {
@@ -29,7 +47,7 @@ public abstract class Item {
 			upgrade += upgrade;
 			setQuantity(0);
 		}
-		useItem();
+		return useItem();
 	}
 	
 	public String toString() {
