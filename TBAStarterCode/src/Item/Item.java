@@ -8,8 +8,11 @@ package Item;
  */
 
 public interface Item {
-
+	
+	// how the item is to be used
 	public abstract void useItem();
+	
+	// a brief description of the item
 	public abstract String toString();
 
 }

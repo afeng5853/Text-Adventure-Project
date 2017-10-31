@@ -1,13 +1,20 @@
 package people;
 
-
 import java.util.ArrayList;
 
 import Item.Item;
 import constants.Constants;
 import rooms.Room;
 
+/**
+ * Used to create person objects that may ____.
+ * @author Alex Feng
+ * @author Raymond Cheung 
+ * @since 10/30/17
+ */
+
 public abstract class Person {
+	//fields
 	private String firstName;
 	private String lastName;
 	private Room room;
@@ -16,6 +23,7 @@ public abstract class Person {
 	private ArrayList<Item> inventory;
 	private int hp;
 	
+	//constructor
 	public Person(String firstName, String lastName, int x, int y, int hp) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
@@ -25,7 +33,17 @@ public abstract class Person {
 		this.setHp(hp);
 	}
 	
+	/**
+     * the greeting of the person as a string
+     */
+	
 	public abstract String getGreeting();
+	
+	//methods
+	
+	/**
+     * @return		the full name of the person
+     */
 	
 	@Override
 	public String toString() {
@@ -59,7 +77,11 @@ public abstract class Person {
 	public void printRoom() {
 		System.out.println(this.room);
 	}
-
+	
+	/**
+     * @return		the location of the user on the game board
+     */
+	
 	public int getX() {
 		return x;
 	}
@@ -80,9 +102,24 @@ public abstract class Person {
 		this.inventory.add(i);
 	}
 	
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	
 	public void addHp(int amount) {
 		this.hp += amount;
 	}
+	
+	/**
+	 * A helper method to determine if it is possible to move in the specified direction.
+	 * Checks if the move will be in the bounds of the array and if there is a door that can be passed through.
+	 * @param	dir	the direction to be moved
+     * @return		whether or not it is possible to move in the specified direction
+     */
 	
 	public boolean canMove(int dir) {
 		if (dir == Constants.LEFT) {
@@ -114,6 +151,11 @@ public abstract class Person {
 		}
 	}
 	
+	/**
+	 * Moves the user in the specified direction if it is possible
+	 * @param	dir	the direction to be moved
+     */
+	
 	public void move(int dir) {
 		if (dir == Constants.LEFT) {
 			if (canMove(dir)) {
@@ -132,17 +174,8 @@ public abstract class Person {
 				this.y++;
 			}
 		} else {
-			System.out.println("????????error??????????");
+			System.out.println("????????error????????");
 		}
 	}
-
-	public int getHp() {
-		return hp;
-	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
-	
 	
 }
