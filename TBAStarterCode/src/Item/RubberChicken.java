@@ -2,16 +2,18 @@ package Item;
 import java.util.*;
 
 public class RubberChicken extends Weapons {
+	
+	// fields
 	private String name;
 	private int value;
-	private int quantity;
+	private String type;
 	
-	public RubberChicken(String name, int value, int quantity) {
-		super(name, value, quantity);
+	public RubberChicken(String name, int value, String type) {
+		super(name, type, value);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "You have" + getQuantity() + "rubber chickens";
+		return "Rubber chickens are mythical weapons. Their quackking sound can scare even the bravest ghosts!";
 	}
 }
