@@ -2,13 +2,15 @@ package Item;
 import java.util.*;
 
 public class WaterSprayer extends Weapons {
+	
+	// fields
 	private String name;
 	private int value;
-	private int quantity;
+	private String type;
 	
 	public WaterSprayer(String name, int value, int quantity) {
 	}
-	
+
 	@Override
 	public String toString() {
 		return "";

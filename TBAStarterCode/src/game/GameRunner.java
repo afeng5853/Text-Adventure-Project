@@ -13,6 +13,13 @@ import floor.Floor;
 
 import utilities.util;
 
+/**
+ * Initializes the text adventure game by creating a player and the game board.
+ * Additionally, allows the player to move around the game board
+ * @author Alex Feng
+ * @author Raymond Cheung 
+ * @since 10/30/17
+ */
 public class GameRunner {
 
 	private static int state = 0;

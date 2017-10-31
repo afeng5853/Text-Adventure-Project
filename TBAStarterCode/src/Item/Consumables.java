@@ -5,7 +5,7 @@ import people.Person;
 public abstract class Consumables implements Item {
 	private Person person;
 	private int hp;
-	
+
 	public Consumables(int hp) {
 		this.setHp(hp);
 	}
