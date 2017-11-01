@@ -1,4 +1,4 @@
-package game;
+xpackage game;
 
 //import items.Item;
 import rooms.*;
@@ -26,7 +26,6 @@ public class GameRunner {
 	private static int state = 0;
 	private final static int INTRO = 0;
 	private final static int IN_PLAY = 1;
-	
 	
     public static void main (String[] args)
     {        
@@ -140,9 +139,9 @@ public class GameRunner {
 		System.out.println("                uuuuuuu\n"
 + "             uu$$$$$$$$$$$uu\n"
 + "          uu$$$$$$$$$$$$$$$$$uu\n"
-+ "         u$$$$$$$$$$$$$$$$$$$$$u\n"
++ "         u$$$nick$w$$$$$$$$$$$u\n"
 + "        u$$$$$$$$$$$$$$$$$$$$$$$u\n"
-+ "       u$$$$$$$$$$$$$$$$$$$$$$$$$u\n"
++ "       u$$$$$$was$$$$here$$$$$$$$u\n"
 + "       u$$$$$$$$$$$$$$$$$$$$$$$$$u\n"
 + "       u$$$$$$\"   \"$$$\"   \"$$$$$$u\n"
 + "       \"$$$$\"      u$u       $$$$\"\n"

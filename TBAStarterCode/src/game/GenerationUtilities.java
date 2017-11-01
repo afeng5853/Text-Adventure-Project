@@ -34,12 +34,22 @@ public class GenerationUtilities {
 		return responses[idx];
 	}
 	
+	/**
+     * Generates a random item
+     * @return		the generated item
+     */
+	
 	public static Item randomItem() {
 		Item[] items = {new Orange(), new RubberChicken(), new TeleportPill()};
 		Random rand = new Random();
 		int idx = rand.nextInt(items.length);
 		return items[idx];
 	}
+	
+	/**
+     * Has a 20% chance to place a random item throughout the rooms of a floor.
+     * @param 	f	the floor to be populated with items
+     */
 	
 	public static void placeRandomItems(Floor f) {
 		for (Room[] row : f.getRooms()) {
@@ -50,6 +60,7 @@ public class GenerationUtilities {
 			}
 		}
 	}
+	
 	/**
      * Creates a floor using a 5 by 5 array and populates the array with rooms. 
      * @return	ground	the generated floor

@@ -143,10 +143,11 @@ public abstract class Room {
 				 		   +  "###").toCharArray();
 		boolean[] doors = this.getDoors();
 		
-		// if this room has a player 
 		if (this.hasPlayer()) {
 			roomGraphic[4] = 'P';
 		}
+		
+		// if door in current direction then replace wall with space
 		
 		if (doors[Constants.UP]) {
 			addDoor(roomGraphic, Constants.UP);
