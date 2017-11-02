@@ -22,7 +22,7 @@ import utilities.util;
  */
 
 public class GameRunner {
-
+	
 	private static int state = 0;
 	private final static int INTRO = 0;
 	private final static int IN_PLAY = 1;
@@ -107,6 +107,12 @@ public class GameRunner {
 		in.close();
     }
     
+	/**
+	 * If the player wishes to enter the house, the game will begin.
+	 * @param statement the response of the user
+	 * @return response	the action that happens
+	 */
+    
 	private static String parseIntroResponse(String statement) {
 		String response = "Nothing happens.";
 		if (util.findKeyword(statement, "enter") != -1 || 
@@ -135,34 +141,34 @@ public class GameRunner {
 		System.out.println("You have discovered an abandoned house in the middle of nowhere.");
 	}
 
-	private static void printDeath() {
-		System.out.println("                uuuuuuu\n"
-+ "             uu$$$$$$$$$$$uu\n"
-+ "          uu$$$$$$$$$$$$$$$$$uu\n"
-+ "         u$$$nick$w$$$$$$$$$$$u\n"
-+ "        u$$$$$$$$$$$$$$$$$$$$$$$u\n"
-+ "       u$$$$$$was$$$$here$$$$$$$$u\n"
-+ "       u$$$$$$$$$$$$$$$$$$$$$$$$$u\n"
-+ "       u$$$$$$\"   \"$$$\"   \"$$$$$$u\n"
-+ "       \"$$$$\"      u$u       $$$$\"\n"
-+ "        $$$u       u$u       u$$$\n"
-+ "        $$$u      u$$$u      u$$$\n"
-+ "        \"$$$$uu$$$   $$$uu$$$$\"\n"
-+ "          \"$$$$$$$\"   \"$$$$$$$\"\n"
-+ "            u$$$$$$$u$$$$$$$u\n"
-+ "             u$\"$\"$\"$\"$\"$\"$u\n"
-+ "  uuu        $$u$ $ $ $ $u$$       uuu\n"
-+ " u$$$$        $$$$$u$u$u$$$       u$$$$\n"
-+ "  $$$$$uu      \"$$$$$$$$$\"     uu$$$$$$\n"
-+ "u$$$$$$$$$$$uu    \"\"\"\"\"    uuuu$$$$$$$$$$\n"
-+ "$$$$\"\"\"$$$$$$$$$$uuu   uu$$$$$$$$$\"\"\"$$$\"\n"
-+ " \"\"\"      \"\"$$$$$$$$$$$uu \"\"$\"\"\"\n"
-+ "           uuuu \"\"$$$$$$$$$$uuu\n"
-+ "  u$$$uuu$$$$$$$$$uu \"\"$$$$$$$$$$$uuu$$$\n"
-+ "  $$$$$$$$$$\"\"\"\"           \"\"$$$$$$$$$$$\"\n"
-+ "   \"$$$$$\"                      \"\"$$$$\"\"\n"
-+ "     $$$\"                         $$$$\"\n");
-	}
+		private static void printDeath() {
+			System.out.println("                uuuuuuu\n"
+	+ "             uu$$$$$$$$$$$uu\n"
+	+ "          uu$$$$$$$$$$$$$$$$$uu\n"
+	+ "         u$$$nick$w$$$$$$$$$$$u\n"
+	+ "        u$$$$$$$$$$$$$$$$$$$$$$$u\n"
+	+ "       u$$$$$$was$$$$here$$$$$$$$u\n"
+	+ "       u$$$$$$$$$$$$$$$$$$$$$$$$$u\n"
+	+ "       u$$$$$$\"   \"$$$\"   \"$$$$$$u\n"
+	+ "       \"$$$$\"      u$u       $$$$\"\n"
+	+ "        $$$u       u$u       u$$$\n"
+	+ "        $$$u      u$$$u      u$$$\n"
+	+ "        \"$$$$uu$$$   $$$uu$$$$\"\n"
+	+ "          \"$$$$$$$\"   \"$$$$$$$\"\n"
+	+ "            u$$$$$$$u$$$$$$$u\n"
+	+ "             u$\"$\"$\"$\"$\"$\"$u\n"
+	+ "  uuu        $$u$ $ $ $ $u$$       uuu\n"
+	+ " u$$$$        $$$$$u$u$u$$$       u$$$$\n"
+	+ "  $$$$$uu      \"$$$$$$$$$\"     uu$$$$$$\n"
+	+ "u$$$$$$$$$$$uu    \"\"\"\"\"    uuuu$$$$$$$$$$\n"
+	+ "$$$$\"\"\"$$$$$$$$$$uuu   uu$$$$$$$$$\"\"\"$$$\"\n"
+	+ " \"\"\"      \"\"$$$$$$$$$$$uu \"\"$\"\"\"\n"
+	+ "           uuuu \"\"$$$$$$$$$$uuu\n"
+	+ "  u$$$uuu$$$$$$$$$uu \"\"$$$$$$$$$$$uuu$$$\n"
+	+ "  $$$$$$$$$$\"\"\"\"           \"\"$$$$$$$$$$$\"\n"
+	+ "   \"$$$$$\"                      \"\"$$$$\"\"\n"
+	+ "     $$$\"                         $$$$\"\n");
+		}
 }
 
 
