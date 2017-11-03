@@ -1,4 +1,4 @@
-xpackage game;
+package game;
 
 //import items.Item;
 import rooms.*;
@@ -58,41 +58,14 @@ public class GameRunner {
            
            if (state == IN_PLAY) {
         	   if (util.findKeyword(response, "up") != -1) {
-            	   if (me.canMove(Constants.UP)) {
-            		   floor.removePlayer(me);
-            		   me.move(Constants.UP);
-            		   
-            		   floor.placePlayer(me);
-            		   floor.printMap();
-                       System.out.println(me.getRoom().getDesc());
-            	   }
-               } else if (util.findKeyword(response, "left") != -1) {
-            	   if (me.canMove(Constants.LEFT)) {
-            		   floor.removePlayer(me);
-            		   me.move(Constants.LEFT);
-            		   
-            		   floor.placePlayer(me);
-            		   floor.printMap();
-                       System.out.println(me.getRoom().getDesc());
-            	   }
+        		   moveAround(floor, me, Constants.UP);
+        	   }
+               else if (util.findKeyword(response, "left") != -1) {
+        		   moveAround(floor, me, Constants.LEFT);
                } else if (util.findKeyword(response, "right") != -1) {
-            	   if (me.canMove(Constants.RIGHT)) {
-            		   floor.removePlayer(me);
-            		   me.move(Constants.RIGHT);
-            		   
-            		   floor.placePlayer(me);
-            		   floor.printMap();
-                       System.out.println(me.getRoom().getDesc());
-            	   }
+        		   moveAround(floor, me, Constants.RIGHT);
                } else if (util.findKeyword(response, "down") != -1) {
-            	   if (me.canMove(Constants.DOWN)) {
-            		   floor.removePlayer(me);
-            		   me.move(Constants.DOWN);
-            		   
-            		   floor.placePlayer(me);
-            		   floor.printMap();
-                       System.out.println(me.getRoom().getDesc());
-            	   }
+        		   moveAround(floor, me, Constants.DOWN);
                } else {
             	   System.out.println(me.getRoom().parseResponse(me, response));
                }
@@ -169,6 +142,14 @@ public class GameRunner {
 	+ "   \"$$$$$\"                      \"\"$$$$\"\"\n"
 	+ "     $$$\"                         $$$$\"\n");
 		}
+		
+	private static void moveAround(Floor current, Player user, int x) {
+		current.removePlayer(user);
+		user.move(x);
+	   current.placePlayer(user);
+	   current.printMap();
+       System.out.println(user.getRoom().getDesc());
+	}
 }
 
 

@@ -16,9 +16,7 @@ public class Player extends Person {
 	@Override
 	public String getGreeting() {
 		return "You";
-	}
-
-	
+	}	
 }
 
 
