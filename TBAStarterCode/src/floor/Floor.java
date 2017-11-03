@@ -1,5 +1,6 @@
 package floor;
 
+import people.Person;
 import people.Player;
 import rooms.Room;
 
@@ -40,13 +41,13 @@ public class Floor {
 		return rooms[y][x];
 	}
 	
-	public void placePlayer(Player p) {
-		rooms[p.getY()][p.getX()].addOccupant(p);
-		p.setRoom(getRoom(p.getX(), p.getY()));
+	public void placePlayer(Person user) {
+		rooms[user.getY()][user.getX()].addOccupant(user);
+		user.setRoom(getRoom(user.getX(), user.getY()));
 	}
 
-	public void removePlayer(Player p) {
-		rooms[p.getY()][p.getX()].removeOccupant(p);
+	public void removePlayer(Person user) {
+		rooms[user.getY()][user.getX()].removeOccupant(user);
 	}
 	
 	/**

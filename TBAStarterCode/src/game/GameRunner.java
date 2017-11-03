@@ -2,6 +2,7 @@ package game;
 
 //import items.Item;
 import rooms.*;
+import people.Enemy;
 import people.Person;
 import people.Player;
 
@@ -32,6 +33,7 @@ public class GameRunner {
         Floor floor = GenerationUtilities.createFloor();
         GenerationUtilities.placeRandomItems(floor);
         Player me = new Player("Alex", "Feng", 2, 4, 10);
+        Enemy ghost = new Enemy("Scary", "Ghost", 0, 0, 15);
         floor.placePlayer(me);
         me.setRoom(floor.getRoom(me.getX(), me.getY()));
         printIntro();
@@ -41,6 +43,13 @@ public class GameRunner {
         
         while(gameOn)
         {
+            int dir = (int)(Math.random() * 3);
+            movePlayer(floor, ghost, dir);
+            
+            if (ghost.getRoom() == me.getRoom()) {
+            	//encounterEnemy();
+            }
+            
            System.out.println("What would you like to do?");
            String response = in.nextLine();
            
@@ -58,14 +67,14 @@ public class GameRunner {
            
            if (state == IN_PLAY) {
         	   if (util.findKeyword(response, "up") != -1) {
-        		   moveAround(floor, me, Constants.UP);
+        		   movePlayer(floor, me, Constants.UP);
         	   }
                else if (util.findKeyword(response, "left") != -1) {
-        		   moveAround(floor, me, Constants.LEFT);
+            	   movePlayer(floor, me, Constants.LEFT);
                } else if (util.findKeyword(response, "right") != -1) {
-        		   moveAround(floor, me, Constants.RIGHT);
+            	   movePlayer(floor, me, Constants.RIGHT);
                } else if (util.findKeyword(response, "down") != -1) {
-        		   moveAround(floor, me, Constants.DOWN);
+            	   movePlayer(floor, me, Constants.DOWN);
                } else {
             	   System.out.println(me.getRoom().parseResponse(me, response));
                }
@@ -143,13 +152,21 @@ public class GameRunner {
 	+ "     $$$\"                         $$$$\"\n");
 		}
 		
-	private static void moveAround(Floor current, Player user, int x) {
-		current.removePlayer(user);
-		user.move(x);
+	/**
+	 * Displays the player moving across the game board.
+	 * @param floor the current floor the player is on
+	 * @param user	the player that should be moved
+	 * @param dir	the direction as an integer to move in
+	 */
+	
+	private static void movePlayer(Floor current, Person user, int x) {
+	   current.removePlayer(user);
+	   user.move(x);
 	   current.placePlayer(user);
 	   current.printMap();
        System.out.println(user.getRoom().getDesc());
 	}
+	
 }
 
 
