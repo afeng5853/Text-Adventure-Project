@@ -80,13 +80,11 @@ public class GenerationUtilities {
 		boolean[] randomDoors = randomDoors();
 		Person[] persons = new Person[] {};
 		Item[] items = new Item[] {randomItem()};
-		Random random = new Random();
-		int randomInt = random.nextInt(2);
-		switch (randomInt) {
-			case 1:
-				return new Kitchen(randomDoors, persons, items, x, y, "");
-			default:
-				return new NormalRoom(randomDoors, persons, items, x, y, "");
+		double random = Math.random();
+		if (random < 0.75) {
+			return new NormalRoom(randomDoors, persons, items, x, y, getGenericResponse());
+		} else {
+			return new Staircase(randomDoors, persons, items, x, y, "You found a staircase");
 		}
 	}
 	
