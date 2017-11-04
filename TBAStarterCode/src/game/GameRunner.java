@@ -10,6 +10,7 @@ import people.Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Item.Key;
 import area.AbandonedHouse;
 import constants.Constants;
 import floor.Floor;
@@ -36,7 +37,7 @@ public class GameRunner {
         AbandonedHouse house = new AbandonedHouse(new Floor[] {floor, new Floor(), new Floor()});
         GenerationUtilities.placeRandomItems(floor);
         Player me = new Player(2, 4, 0, 20, 1, floor, house);
-        Ghost ghost = new Ghost(0, 0, 0, 40, 1, 2, me, floor, house);
+        Ghost ghost = new Ghost(0, 0, 0, 1, 1, 2, me, floor, house);
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(ghost);
         
@@ -60,8 +61,7 @@ public class GameRunner {
         	if (gameOn) {
         		gameOn = playerTurn(me.getFloor(), me, in);
         	}
-        	
-        	
+
         	System.out.println("---------------------------------------");
         	turns++;
         }
@@ -73,8 +73,11 @@ public class GameRunner {
     	if (state == IN_PLAY) {
     		for (int i = enemies.size() - 1; i >= 0; i--) {
     			Enemy enemy = enemies.get(i);
-    			if (enemy.getHp() <= 0) {
+    			// Only one enemy in this game, so this works
+    			if (isDead(enemy)) {
     				enemies.remove(enemy);
+    				System.out.println("The " + enemy + " drops a key! You take it and add it to you inventory");
+            		p.addToInventory(new Key());
     				continue;
     			}
         		int nextMove = enemy.getNextMove(p);
@@ -121,12 +124,17 @@ public class GameRunner {
          	   movePlayer(floor, me, Constants.DOWN);
             } else {
             	floor.printMap();
-            	System.out.println(me.getRoom().parseResponse(me, response));
+            	String roomResponse = me.getRoom().parseResponse(me, response);
+            	System.out.println(roomResponse);
+            	if (roomResponse.equals("You've won the game!")) {
+            		return false;
+            	}
             }
         }
         if (isDead(me))  {
      	   return false;
         }
+        
         return true;
     }
     
@@ -134,6 +142,13 @@ public class GameRunner {
     	if (me.getHp() <= 0)  {
       	   printDeath();
       	   System.out.println("You've died. Game over.");
+      	   return true;
+         }
+    	return false;
+    }
+    
+    private static boolean isDead(Enemy me) {
+    	if (me.getHp() <= 0)  {
       	   return true;
          }
     	return false;

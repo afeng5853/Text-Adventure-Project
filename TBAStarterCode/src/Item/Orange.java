@@ -13,7 +13,7 @@ import people.Person;
 public class Orange extends Consumables {
 	
 	//field
-	public final static int HP_RESTORE = 2;
+	public final static int HP_RESTORE = 4;
 	
 	//constructors
 	public Orange() {

@@ -144,8 +144,12 @@ public abstract class Room {
 		String[] pickUpKeywords = {"take", "pick up", "get"};
 		String[] useKeywords = {"consume", "eat", "use", "swallow"};
 		String[] attackKeywords = {"attack", "hit"};
+		String[] inventoryKeywords = {"bag", "inventory"};
 	
-		if (util.findKeyword(response, searchKeywords ,0) != -1) {
+		if (util.findKeyword(response, inventoryKeywords) != -1) {
+			response = "You have " + p.getInventory();
+		}
+		else if (util.findKeyword(response, searchKeywords) != -1) {
 			response = "";
 			if (this.items.length > 0) {
 				StringBuilder build = new StringBuilder();
@@ -175,7 +179,6 @@ public abstract class Room {
 				response = "There is nothing to pick up.";
 			}
 		} else if (util.findKeyword(response, useKeywords) != -1){
-			response = "";
 			if (p.getInventory().size() > 0) {
 				ArrayList<Item> consumables = p.getConsumables();
 				for (Item consumable : consumables) {

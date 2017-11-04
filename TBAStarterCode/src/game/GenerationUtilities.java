@@ -8,6 +8,7 @@ import Item.Orange;
 import Item.RubberChicken;
 import Item.TeleportPill;
 import people.Person;
+import rooms.Entrance;
 import rooms.Kitchen;
 import rooms.NormalRoom;
 import rooms.Room;
@@ -128,7 +129,7 @@ public class GenerationUtilities {
 		NormalRoom room20 = new NormalRoom(new boolean[] {true, true, false, false}, new Person[] {}, new Item[] {}, 3, 4, getGenericResponse());
 		Kitchen room21 = new Kitchen(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {}, 4, 0, kitchen);
 		Kitchen room22 = new Kitchen(new boolean[] {true, true, false, false}, new Person[] {}, new Item[] {}, 4, 1, kitchen);
-		NormalRoom room23 = new NormalRoom(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {}, 4, 2, "You return back to the entrance, but the entrance seems locked");
+		Entrance room23 = new Entrance(new boolean[] {true, false, true, false}, new Person[] {}, new Item[] {}, 4, 2, "You return back to the entrance, but the entrance seems locked");
 		NormalRoom room24 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {}, 4, 3, "");
 		NormalRoom room25 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {}, 4, 4, "");
 		
