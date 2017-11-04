@@ -139,7 +139,7 @@ public abstract class Room {
     }
     
 	/**
-	 *  Adds the specified person from the room
+	 *  Adds the specified person to the room
 	 *  @param	p 	the person to be added
      */
     
@@ -184,7 +184,7 @@ public abstract class Room {
 	/**
 	 * Places a door, which allows you to move between rooms, and is represented as an empty space on the game board.
 	 * @param room	the room where the door should be placed
-	 * @param door	the location where the door should be placed (north, west, east, south) as an integer
+	 * @param door	the location where the door should be placed (North, West, East, South) as an integer
 	 */
 	
 	private static void addDoor(char[] room, int door) {

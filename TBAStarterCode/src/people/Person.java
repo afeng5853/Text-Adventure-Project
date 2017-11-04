@@ -18,8 +18,8 @@ import rooms.Room;
  */
 
 public abstract class Person implements Movable, Attacker {
+	
 	//fields
-
 	private Room room;
 	private int x;
 	private int y;
@@ -192,7 +192,7 @@ public abstract class Person implements Movable, Attacker {
 			p.addHp(-1 * weapon.getStrength());
 		} else if (this instanceof Enemy) {
 			int enemyStrength = ((Enemy) this).getStrength();
-			System.out.println(this + " attacks dealing " + enemyStrength + " damage");
+			System.out.println(this + " attacks dealing " + enemyStrength + " damage" + "\n" + "You have" + this.getHp() + " hp left!");
 			p.addHp(-enemyStrength);
 		} else {
 			System.out.println(this + " attacks!");

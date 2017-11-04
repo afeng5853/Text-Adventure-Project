@@ -4,6 +4,11 @@ import area.AbandonedHouse;
 import constants.Constants;
 import floor.Floor;
 
+/**
+ * Ghosts are enemies that chase the player throughout the game.
+ * @since 11/04/17
+ */
+
 public class Ghost extends Enemy {
 
 	public Ghost(int x, int y, int z, int hp, int hitRange, int strength, Person focus, Floor floor, AbandonedHouse house) {

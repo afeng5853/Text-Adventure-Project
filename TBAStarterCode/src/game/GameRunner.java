@@ -30,6 +30,12 @@ public class GameRunner {
 	private static int state = 0;
 	private final static int INTRO = 0;
 	private final static int IN_PLAY = 1;
+	private static String help = "Commands:" + "\n" +
+								   "Movement: up, right, left, down, climb" + "\n" +
+								   "Search: search for items in a room" + "\n" +
+								   "Take: takes items from a room" + "\n" +
+								   "Eat: uses consumables" + "\n" +
+								   "Attack: attack enemies if you have a weapon" + "\n";
 	
     public static void main (String[] args)
     {        
@@ -115,7 +121,8 @@ public class GameRunner {
     private static boolean playerTurn(Floor floor, Player me, Scanner in) {
     	System.out.println("What would you like to do?");
         String response = in.nextLine();
-        
+        //	public String parseResponse(Player p, String response_) {
+
         if (state == INTRO) {
      	   String introResponse = parseIntroResponse(response);
      	   if (introResponse.equals("~ENTERED")) {
@@ -127,7 +134,13 @@ public class GameRunner {
         }
         
         if (state == IN_PLAY) {
-     	   if (util.findKeyword(response, "up") != -1) {
+      	   if (util.findKeyword(response, "help") != -1) {
+            	System.out.println(help);
+        	   }
+        	    if (util.findKeyword(response, "stair") != -1) {
+               	System.out.println(me.getRoom().parseResponse(me, response));
+      	   }
+        	    else if (util.findKeyword(response, "up") != -1) {
      		   movePlayer(floor, me, Constants.UP);
      	   }
             else if (util.findKeyword(response, "left") != -1) {
@@ -263,6 +276,5 @@ public class GameRunner {
 	}
 	
 }
-
 
 

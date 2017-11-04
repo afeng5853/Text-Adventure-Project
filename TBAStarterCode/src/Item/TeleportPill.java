@@ -5,7 +5,7 @@ import constants.Constants;
 import people.Person;
 
 /**
- * The Teleport Pill is a consumable that moves the player to a random location on the game board.
+ * The Teleport Pill is a consumable that moves the player to a location on the game board.
  * @author Alex Feng
  * @author Raymond Cheung 
  * @since 10/31/17
@@ -40,7 +40,7 @@ public class TeleportPill extends Consumables{
 	// methods
 	
 	/**
-     * Using the item, will teleport the player to a random location on the game board.
+     * Using the item, will teleport the player to a location on the game board.
      */
 	
 	@Override
