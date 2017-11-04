@@ -25,4 +25,6 @@ public class Constants {
 	public static final int LENGTH = 5;
 	public static final int WIDTH = 5;
 	
+
+	public static final int ATTACK = -1;
 }

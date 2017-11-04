@@ -1,10 +1,14 @@
 package rooms;
 
+import people.Enemy;
 import people.Person;
 import people.Player;
 import utilities.util;
 import Item.Item;
+import Item.RubberChicken;
+import Item.TeleportPill;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import constants.Constants;
@@ -35,6 +39,11 @@ public abstract class Room {
         this.items[this.items.length-1] = i;
     }
     
+    public void deleteItem()
+    {
+        this.items = new Item[] {};
+    }
+    
     public Person[] getOccupants() {
         return occupants;
     }
@@ -48,6 +57,27 @@ public abstract class Room {
 		}
 		return false;
 	}
+    
+    public boolean hasEnemy() {
+		Person[] occupants = this.getOccupants();
+		for (Person p : occupants) {
+			if (p instanceof Enemy) {
+				return true;
+			}
+		}
+		return false;
+	}
+    
+    public Enemy[] getEnemies() {
+    	Person[] occupants = this.getOccupants();
+    	Enemy[] enemies = new Enemy[occupants.length];
+		for (int i = 0; i < occupants.length; i++) {
+			if (occupants[i] instanceof Enemy) {
+				enemies[i] = (Enemy) occupants[i];
+			}
+		}
+		return enemies;
+    }
     
     public void setOccupants(Person[] occupants) {
         this.occupants = occupants;
@@ -109,22 +139,51 @@ public abstract class Room {
 	public String parseBasicResponses(Player p, String response) {
 		String[] searchKeywords = {"examine", "search"};
 		String[] pickUpKeywords = {"take", "pick up", "get"};
+		String[] useKeywords = {"consume", "eat", "use", "swallow"};
+	
 		if (util.findKeyword(response, searchKeywords ,0) != -1) {
-			if (this.items.length > 0 ) {
+			if (this.items.length > 0) {
 				StringBuilder build = new StringBuilder();
 				for (Item i : items) {
 					build.append(i.toString() + " ");
 				}
-				return "You find " + build.toString();
+				response =  "You find " + build.toString();
 			} else {
-				return "You find nothing.";
+				response = "You find nothing";
 			}
 		} else if (util.findKeyword(response, pickUpKeywords) != -1){
 			if (this.items.length > 0) {
 				p.addToInventory(this.items[0]);
-				return "You picked up " + this.items[0];
+				response = "You picked up " + this.items[0];
+				System.out.println(this.items[0].getInfo());
+				// If the player already has a rubber chicken, upgrade it
+				if (this.items[0] instanceof RubberChicken && p.hasItem(this.items[0])) {
+					((RubberChicken) p.getItem(this.items[0])).increaseStrength(2);
+					System.out.println("Your chicken grows larger");
+				}
+				deleteItem();
+			} else {
+				response = "There is nothing to pick up.";
 			}
+		} else if (util.findKeyword(response, useKeywords) != -1){
+			if (p.getInventory().size() > 0) {
+				ArrayList<Item> consumables = p.getConsumables();
+				System.out.println(consumables);
+				for (Item consumable : consumables) {
+					if (util.findKeyword(response, consumable.toString()) != -1) {
+						p.consumeItem(consumable);
+						response = "You ate the " + consumable;
+						//special case of teleport
+						if (consumable instanceof TeleportPill) {
+							this.removeOccupant(p);
+						}
+					}
+				}
+			}
+		} else {
+			response = "";
 		}
+		
 		return response;
 	}
 	
@@ -145,6 +204,18 @@ public abstract class Room {
 		
 		if (this.hasPlayer()) {
 			roomGraphic[4] = 'P';
+		}
+		
+		if (this.hasEnemy()) {
+			Enemy[] enemies = this.getEnemies();
+			for (Enemy e : enemies) {
+				if (e == null) {
+					continue;
+				}
+				if (e.canAttack()) {
+					roomGraphic[4] = 'G';
+				}
+			}
 		}
 		
 		// if door in current direction then replace wall with space

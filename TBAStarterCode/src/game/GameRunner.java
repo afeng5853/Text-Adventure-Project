@@ -3,6 +3,7 @@ package game;
 //import items.Item;
 import rooms.*;
 import people.Enemy;
+import people.Ghost;
 import people.Person;
 import people.Player;
 
@@ -32,61 +33,96 @@ public class GameRunner {
     {        
         Floor floor = GenerationUtilities.createFloor();
         GenerationUtilities.placeRandomItems(floor);
-        Player me = new Player("Alex", "Feng", 2, 4, 10);
-        Enemy ghost = new Enemy("Scary", "Ghost", 0, 0, 15);
+        Player me = new Player(2, 4, 20);
+        Ghost ghost = new Ghost(0, 0, 40, 1, 2, me);
+        Enemy[] enemies = {ghost};
+        
         floor.placePlayer(me);
+        floor.placePlayer(ghost);
         me.setRoom(floor.getRoom(me.getX(), me.getY()));
         printIntro();
         
         boolean gameOn = true;
         Scanner in = new Scanner(System.in);
         
+        int turns = 0;
         while(gameOn)
         {
-            int dir = (int)(Math.random() * 3);
-            movePlayer(floor, ghost, dir);
-            
-            if (ghost.getRoom() == me.getRoom()) {
-            	//encounterEnemy();
-            }
-            
-           System.out.println("What would you like to do?");
-           String response = in.nextLine();
-           
-           if (state == INTRO) {
-        	   String introResponse = parseIntroResponse(response);
-        	   if (introResponse.equals("~ENTERED")) {
-        		   state = IN_PLAY;
-        		   floor.printMap();
-        		   System.out.println("You hear the door suddenly slam behind you. You are stuck.");
-        		   continue;
-        	   } else {
-        		   System.out.println(introResponse);
-        	   }
-           }
-           
-           if (state == IN_PLAY) {
-        	   if (util.findKeyword(response, "up") != -1) {
-        		   movePlayer(floor, me, Constants.UP);
-        	   }
-               else if (util.findKeyword(response, "left") != -1) {
-            	   movePlayer(floor, me, Constants.LEFT);
-               } else if (util.findKeyword(response, "right") != -1) {
-            	   movePlayer(floor, me, Constants.RIGHT);
-               } else if (util.findKeyword(response, "down") != -1) {
-            	   movePlayer(floor, me, Constants.DOWN);
-               } else {
-            	   System.out.println(me.getRoom().parseResponse(me, response));
-               }
-           }
-           if (me.getHp() <= 0)  {
-        	   printDeath();
-        	   System.out.println("You've died. Game over.");
-        	   gameOn = false;
-           }
-           
+        	if (gameOn) {
+        		enemyTurn(floor, me, enemies, turns);
+        	}
+        	gameOn = playerTurn(floor, me, in);
+        	
+        	turns++;
         }
+        
 		in.close();
+    }
+    
+    private static boolean enemyTurn(Floor floor, Player p, Enemy[] enemies, int turns) {
+    	if (state == IN_PLAY) {
+    		for (Enemy enemy : enemies) {
+        		int nextMove = enemy.getNextMove(p);
+        		if (enemy.canAttack(p)) {
+        			enemy.attack(p);
+        			if (isDead(p))  {
+        				return false;
+        		    }
+        		}
+        		// move every other turn
+        		if (turns % 2 == 1) {
+        			floor.removePlayer(enemy);
+        			enemy.move(nextMove);
+        			floor.placePlayer(enemy);
+        		}
+        	}
+    	}
+		return true;
+    }
+    
+    private static boolean playerTurn(Floor floor, Player me, Scanner in) {
+    	
+    	System.out.println("What would you like to do?");
+        String response = in.nextLine();
+        
+        if (state == INTRO) {
+     	   String introResponse = parseIntroResponse(response);
+     	   if (introResponse.equals("~ENTERED")) {
+     		   state = IN_PLAY;
+     		   floor.printMap();
+     		   System.out.println("You hear the door suddenly slam behind you. You are stuck.");
+     	   } else {
+     		   System.out.println(introResponse);
+     	   }
+        }
+        
+        if (state == IN_PLAY) {
+     	   if (util.findKeyword(response, "up") != -1) {
+     		   movePlayer(floor, me, Constants.UP);
+     	   }
+            else if (util.findKeyword(response, "left") != -1) {
+         	   movePlayer(floor, me, Constants.LEFT);
+            } else if (util.findKeyword(response, "right") != -1) {
+         	   movePlayer(floor, me, Constants.RIGHT);
+            } else if (util.findKeyword(response, "down") != -1) {
+         	   movePlayer(floor, me, Constants.DOWN);
+            } else {
+         	   System.out.println(me.getRoom().parseResponse(me, response));
+            }
+        }
+        if (isDead(me))  {
+     	   return false;
+        }
+        return true;
+    }
+    
+    private static boolean isDead(Player me) {
+    	if (me.getHp() <= 0)  {
+      	   printDeath();
+      	   System.out.println("You've died. Game over.");
+      	   return true;
+         }
+    	return false;
     }
     
 	/**
@@ -98,7 +134,8 @@ public class GameRunner {
 	private static String parseIntroResponse(String statement) {
 		String response = "Nothing happens.";
 		if (util.findKeyword(statement, "enter") != -1 || 
-			util.findKeyword(statement, "go in") != -1) {
+			util.findKeyword(statement, "go in") != -1 ||  
+			util.findKeyword(statement, "go inside") != -1){
 			response = "~ENTERED";
 		}
 		return response;

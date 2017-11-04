@@ -32,9 +32,6 @@ public class Kitchen extends Room {
 		if (!ratsEaten && response.equals("You find nothing.")) {
 			response = "Nothing but dead rats.";
 		}
-		if (response.equals(response_)) {
-			return "";
-		}
 		return response;
 	}
 	

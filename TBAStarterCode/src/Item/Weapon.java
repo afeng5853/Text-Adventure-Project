@@ -35,6 +35,10 @@ public abstract class Weapon implements Item {
 		this.strength = strength;
 	}
 	
+	public void increaseStrength(int strength) {
+		this.strength += strength;
+	}
+	
 	public Person getPerson() {
 		return person;
 	}

@@ -14,19 +14,51 @@ import rooms.Room;
  * @since 10/30/17
  */
 
-public class Enemy extends Person{
-
+public abstract class Enemy extends Person {
+	private int hitRange;
+	private int strength;
+	private Person focus;
 	
 	//constructor
-	public Enemy(String firstName, String lastName, int x, int y, int hp) {
-		super(firstName, lastName, x, y, hp);
+	public Enemy(int x, int y, int hp, int hitRange, int strength, Person focus) {
+		super(x, y, hp);
+		this.setHitRange(hitRange);
+		this.setStrength(strength);
+		this.focus = focus;
+	}
+
+	
+	public abstract int getNextMove(Player p);
+
+	public abstract void counterAttack(Player p);
+
+
+	public int getHitRange() {
+		return hitRange;
+	}
+
+
+	public void setHitRange(int hitRange) {
+		this.hitRange = hitRange;
 	}
 	
-	@Override
-	public String getGreeting() {
-		return "I see you";
-	}	
+	public boolean canAttack() {
+		// If the player is in the Enemy's hit range (includes diagonal)
+		return (Math.abs(focus.getX() - this.getX()) <= this.getHitRange()) && (Math.abs(focus.getY() - this.getY()) <= this.getHitRange());
+	}
 	
-    //int x = (int)(Math.random() * 3);
+	public boolean canAttack(Person p) {
+		// If the player is in the Enemy's hit range (includes diagonal)
+		return (Math.abs(p.getX() - this.getX()) <= this.getHitRange()) && (Math.abs(p.getY() - this.getY()) <= this.getHitRange());
+	}
 
+
+	public int getStrength() {
+		return strength;
+	}
+
+
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
 }

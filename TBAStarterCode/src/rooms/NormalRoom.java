@@ -23,10 +23,6 @@ public class NormalRoom extends Room {
 	@Override
 	public String parseResponse(Player p, String response_) {
 		String response = this.parseBasicResponses(p, response_);
-		// if no response
-		if (response.equals(response_)) {
-			return "";
-		}
 		return response;
 	}
 	

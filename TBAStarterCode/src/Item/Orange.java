@@ -27,6 +27,12 @@ public class Orange extends Consumables {
 	//methods
 	@Override
 	public String toString() {
+		return "Orange";
+
+	}
+	
+	@Override
+	public String getInfo() {
 		return "Exploring a haunted house can give you Vitamin C Deficiency. Restore your health by eating an orange!";
 
 	}
@@ -37,6 +43,7 @@ public class Orange extends Consumables {
 	
 	@Override
 	public void useItem() {
-		//TODO : this.getPerson().consume(this.getHp());
+		this.getPerson().addHp(Orange.HP_RESTORE);
+		System.out.println("Your health has been restored by " + Orange.HP_RESTORE);
 	}
 }

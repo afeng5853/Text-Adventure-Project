@@ -1,5 +1,7 @@
 package floor;
 
+import constants.Constants;
+import game.GenerationUtilities;
 import people.Person;
 import people.Player;
 import rooms.Room;
@@ -19,8 +21,23 @@ public class Floor {
 	private int length;
 	private int width;
 	
-	//constructor
+	//constructors
 	public Floor(Room[][] rooms) {
+		this.rooms = rooms;
+		this.length = rooms.length;
+		this.width = rooms[0].length;
+	}
+	
+	/**
+	 * Overloaded constructor that returns a random floor
+	 */
+	public Floor() {
+		Room[][] rooms = new Room[Constants.WIDTH][Constants.LENGTH];
+		for (int i = 0; i < Constants.WIDTH; i++) {
+			for (int j = 0; j < Constants.LENGTH; j++) {
+				rooms[i][j] =  GenerationUtilities.randomRoom(i, j);
+			}
+		}
 		this.rooms = rooms;
 		this.length = rooms.length;
 		this.width = rooms[0].length;

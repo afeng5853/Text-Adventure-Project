@@ -2,7 +2,9 @@ package people;
 
 import java.util.ArrayList;
 
+import Item.Consumables;
 import Item.Item;
+import Item.Weapon;
 import constants.Constants;
 import rooms.Room;
 
@@ -13,10 +15,9 @@ import rooms.Room;
  * @since 10/30/17
  */
 
-public abstract class Person {
+public abstract class Person implements Movable, Attacker{
 	//fields
-	private String firstName;
-	private String lastName;
+
 	private Room room;
 	private int x;
 	private int y;
@@ -24,9 +25,8 @@ public abstract class Person {
 	private int hp;
 	
 	//constructor
-	public Person(String firstName, String lastName, int x, int y, int hp) {
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
+	public Person(int x, int y, int hp) {
+
 		this.setX(x);
 		this.setY(y);
 		this.inventory = new ArrayList<>();
@@ -37,7 +37,7 @@ public abstract class Person {
      * the greeting of the person as a string
      */
 	
-	public abstract String getGreeting();
+	public abstract String toString();
 	
 	//methods
 	
@@ -45,26 +45,6 @@ public abstract class Person {
      * @return		the full name of the person
      */
 	
-	@Override
-	public String toString() {
-		return getFirstName() + " " + getLastName();
-	}
-	
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 
 	public Room getRoom() {
 		return room;
@@ -102,6 +82,51 @@ public abstract class Person {
 		this.inventory.add(i);
 	}
 	
+	public void removeFromInventory(Item i) {
+		this.inventory.remove(i);
+	}
+	
+	public ArrayList<Item> getInventory() {
+		return this.inventory;
+	}
+	
+	public void consumeItem(Item i) {
+		if (i instanceof Consumables) {
+			((Consumables) i).setPerson(this);
+			i.useItem();
+		    removeFromInventory(i);
+		}
+	}
+	
+	public boolean hasItem(Item item) {
+		for (Item check : this.getInventory()) {
+			if (check.toString().equals(item.toString())) {
+				return true;
+			}
+		}
+		return false;
+	}	
+	
+	public Item getItem(Item item) {
+		for (Item check : this.getInventory()) {
+			if (check.toString().equals(item.toString())) {
+				return item;
+			}
+		}
+		return null;
+	}	
+	
+	public ArrayList<Item> getConsumables() {
+		ArrayList<Item> consumables = new ArrayList<>();
+		for (int i = 0; i < inventory.size(); i++) {
+			Item currentItem = inventory.get(i);
+			if (currentItem instanceof Consumables) {
+				consumables.add(currentItem);
+			}
+		}
+		return consumables;
+	}
+	
 	public int getHp() {
 		return hp;
 	}
@@ -112,6 +137,30 @@ public abstract class Person {
 	
 	public void addHp(int amount) {
 		this.hp += amount;
+	}
+	
+	public Weapon getWeapon() {
+		for (Item i : this.getInventory()) {
+			if (i instanceof Weapon) {
+				return (Weapon) i;
+			}
+		}
+		return null;
+	}
+	
+	public void attack(Person p) {
+		Weapon weapon = getWeapon();
+		if (weapon != null) {
+			System.out.println(this + " attack with the " + weapon + "dealing " + weapon.getStrength() + " damage");
+			p.addHp(-1 * weapon.getStrength());
+		} else if (this instanceof Enemy) {
+			int enemyStrength = ((Enemy) this).getStrength();
+			System.out.println(this + " attacks dealing " + enemyStrength + " damage");
+			p.addHp(-enemyStrength);
+		} else {
+			System.out.println(this + " attacks!");
+			p.addHp(-1);
+		}
 	}
 	
 	/**

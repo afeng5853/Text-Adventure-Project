@@ -1,5 +1,7 @@
 package people;
 
+import Item.Item;
+
 /**
  * Creates the player. 
  * @author Alex Feng
@@ -9,14 +11,15 @@ package people;
 
 public class Player extends Person {
 
-	public Player(String firstName, String lastName, int x, int y, int hp) {
-		super(firstName, lastName, x, y, hp);
+	public Player(int x, int y, int hp) {
+		super(x, y, hp);
 	}
 
 	@Override
-	public String getGreeting() {
+	public String toString() {
 		return "You";
-	}	
+	}
+
 }
 
 

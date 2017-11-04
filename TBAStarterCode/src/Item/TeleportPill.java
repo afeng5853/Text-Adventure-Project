@@ -45,13 +45,19 @@ public class TeleportPill extends Consumables{
 	
 	@Override
 	public void useItem() {
+		System.out.println("You magically appear in another room");
 		this.getPerson().setX(this.x);
 		this.getPerson().setX(this.y);
 	}
 	
 	@Override
-	public String toString() {
+	public String getInfo() {
 		return "This untested teleport pill can help you teleport into a safer room. Risks include getting stuck into another dimension and having a mild headache.";
+	}
+	
+	@Override
+	public String toString() {
+		return "Pill";
 	}
 
 }

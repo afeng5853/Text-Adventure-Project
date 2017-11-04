@@ -27,6 +27,11 @@ public class RubberChicken extends Weapon {
 	//methods
 	@Override
 	public String toString() {
+		return "Rubber Chicken";
+	}
+	
+	@Override
+	public String getInfo() {
 		return "Rubber chickens are mythical weapons. Their quackking sound can scare even the bravest ghosts!";
 	}
 	
