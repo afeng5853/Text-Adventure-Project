@@ -26,10 +26,15 @@ public class Staircase extends Room {
 	public String parseResponse(Player p, String response_) {
 		String response = "";
 		String[] upstairKeywords = new String[] {"upstair", "upstairs", "climb"};
+		String[] downstairKeywords = new String[] {"downstair", "downstairs"};
 		if (util.findKeyword(response_, upstairKeywords) != -1) {
 			p.goUpstairs();
 			p.getFloor().printMap();
 			response = "You go upstairs, but suddenly the stair breaks! You're trapped!";
+		} else if (util.findKeyword(response_, downstairKeywords) != -1) {
+			p.goDownstairs();
+			p.getFloor().printMap();
+			response = "You go downstairs, but suddenly the stair breaks! You're trapped!";
 		} else {
 			response = this.parseBasicResponses(p, response_);
 		}
