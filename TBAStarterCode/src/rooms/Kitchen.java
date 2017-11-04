@@ -6,13 +6,28 @@ import people.Person;
 import people.Player;
 import utilities.util;
 
+/**
+ * Kitchen is a room that allows the player to eat.
+ * @since 11/4/17
+ */
+
 public class Kitchen extends Room {
+	
+	//fields
 	private boolean ratsEaten = false;
 	
+	//constructor
 	public Kitchen(boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc) {
 		super(doors, occupants, items, x, y, desc);
 	}
-
+	
+	/**
+	 * Defines interaction with rats that can be found in the Kitchen.
+	 * @param  p		     the player
+	 * @param  response_ the player's response
+	 * @return response  the action that has occurred
+	 */
+	
 	@Override
 	public String parseResponse(Player p, String response_) {
 		String response = this.parseBasicResponses(p, response_);
@@ -35,6 +50,4 @@ public class Kitchen extends Room {
 		}
 		return response;
 	}
-	
-
 }

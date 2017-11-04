@@ -30,8 +30,17 @@ public abstract class Room {
     private int x, y;
     private String desc;
     private Floor floor;
-
-    //constructor
+    
+	/**
+	 * Constructor to create a room
+	 * @param doors			whether a door is present in the four directions (North, West, East , South)	
+	 * @param occupants		the people in the room
+	 * @param items			the items in the room
+	 * @param x				the row location of the room
+	 * @param y				the column location of the room
+	 * @param desc			description of the room
+	 */
+    
     public Room (boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc)
     {
     		this.x = x;

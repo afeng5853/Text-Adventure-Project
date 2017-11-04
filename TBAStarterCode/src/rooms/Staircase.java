@@ -7,20 +7,24 @@ import people.Person;
 import people.Player;
 import utilities.util;
 
+/**
+ * Staircase is a room that allows you to move between floors.
+ * @since 11/4/17
+ */
+
 public class Staircase extends Room {
 	
-	/**
-	 * Creates a normal room
-	 * @param doors
-	 * @param occupants
-	 * @param items
-	 * @param x
-	 * @param y
-	 * @param desc
-	 */
+	//constructor
 	public Staircase(boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc) {
 		super(doors, occupants, items, x, y, desc);
 	}
+
+	/**
+	 * Defines interaction when moving between floors and displays the new floor.
+	 * @param  p		     the player
+	 * @param  response_ the player's response
+	 * @return response  the action that has occurred
+	 */
 
 	@Override
 	public String parseResponse(Player p, String response_) {
