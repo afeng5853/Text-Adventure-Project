@@ -48,6 +48,7 @@ public class Floor {
 		this.rooms = rooms;
 		this.length = rooms.length;
 		this.width = rooms[0].length;
+		GenerationUtilities.placeRandomItems(this);
 		enemies = new ArrayList<>();
 	}
 	

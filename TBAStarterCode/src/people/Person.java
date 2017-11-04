@@ -278,6 +278,20 @@ public abstract class Person implements Movable, Attacker {
 		}
 	}
 	
+	/**
+	 * Moves the player downstairs to another floor
+	 */
+	public void goDownstairs() {
+		this.z--;
+		if (this.z >= 0) {
+			floor.removePlayer(this);
+			this.floor = this.getHouse().getHouse()[this.z];
+			floor.placePlayer(this);
+		} else {
+			this.z++;
+		}
+	}
+	
 	public int getHitRange() {
 		return hitRange;
 	}
