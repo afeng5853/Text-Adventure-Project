@@ -15,8 +15,14 @@ import java.util.Arrays;
 import constants.Constants;
 import floor.Floor;
 
-public abstract class Room {
+/**
+ * Used to create the various rooms in the game.
+ * @since 11/4/17
+ */
 
+public abstract class Room {
+	
+	//fields
     private boolean[] doors;
     private Person[] occupants;
     private Item[] items;
@@ -25,24 +31,34 @@ public abstract class Room {
     private String desc;
     private Floor floor;
 
+    //constructor
     public Room (boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc)
     {
-    	this.x = x;
-    	this.y = y;
+    		this.x = x;
+    		this.y = y;
         this.doors = doors;
         this.occupants = occupants;
         this.items = items;
         this.explored = false;
         this.desc = desc;
     }
-
+    
+	/**
+	 *  Places an item into a room.
+     *  @param	i	the item to be added
+     */
+    
     public void addItem(Item i)
     {
         this.items = Arrays.copyOf(this.items,this.items.length+1);
         this.items[this.items.length-1] = i;
     }
     
-    public void deleteItem()
+	/**
+	 *  Deletes all items stored in a room
+     */
+    
+    public void deleteItems()
     {
         this.items = new Item[] {};
     }
@@ -51,6 +67,10 @@ public abstract class Room {
         return occupants;
     }
 
+	/**
+     *  Checks if the player is in the room
+     */
+    
     public boolean hasPlayer() {
 		Person[] occupants = this.getOccupants();
 		for (Person p : occupants) {
@@ -60,6 +80,10 @@ public abstract class Room {
 		}
 		return false;
 	}
+    
+	/**
+     *  Checks if the enemy is in the room
+     */
     
     public boolean hasEnemy() {
 		Person[] occupants = this.getOccupants();
@@ -71,9 +95,13 @@ public abstract class Room {
 		return false;
 	}
     
+	/**
+     *  @return		 an array containing all enemies in a room
+     */
+    
     public Enemy[] getEnemies() {
-    	Person[] occupants = this.getOccupants();
-    	Enemy[] enemies = new Enemy[occupants.length];
+    		Person[] occupants = this.getOccupants();
+    		Enemy[] enemies = new Enemy[occupants.length];
 		for (int i = 0; i < occupants.length; i++) {
 			if (occupants[i] instanceof Enemy) {
 				enemies[i] = (Enemy) occupants[i];
@@ -86,8 +114,13 @@ public abstract class Room {
         this.occupants = occupants;
     }
 
+	/**
+	 *  Removes the specified person from the room
+	 *  @param	p 	the person to be removed
+     */
+    
     public void removeOccupant(Person p) {
-    	Person[] occupants = this.getOccupants();
+    		Person[] occupants = this.getOccupants();
         for (int i = 0; i < occupants.length; i++) {
         	if (occupants[i] == p) {
         		occupants[i] = null;
@@ -96,6 +129,11 @@ public abstract class Room {
         }
     }
     
+	/**
+	 *  Adds the specified person from the room
+	 *  @param	p 	the person to be added
+     */
+    
     public void addOccupant(Person p)
     {
         this.occupants = Arrays.copyOf(this.occupants,this.occupants.length+1);
@@ -103,20 +141,19 @@ public abstract class Room {
         p.setRoom(this);
     }
     
-
     public boolean[] getDoors()
     {
-    	return doors;
+    		return doors;
     }
     
     public int getX()
     {
-    	return x;
+    		return x;
     }
     
     public int getY()
     {
-    	return y;
+    		return y;
     }
     
 	public String getDesc() {
@@ -128,16 +165,24 @@ public abstract class Room {
 	}
 
 	/**
-	 * places the door character in the according position of the room
-	 * @param room
-	 * @param door
+	 * Places a door, which allows you to move between rooms, and is represented as an empty space on the game board.
+	 * @param room	the room where the door should be placed
+	 * @param door	the location where the door should be placed (north, west, east, south) as an integer
 	 */
+	
 	private static void addDoor(char[] room, int door) {
 		char doorType = ' ';
 		int map = (door * 2) + 1; // maps doorType to index in the char array;
 
 		room[map] = doorType;
 	}
+	
+	/**
+	 * Displays what happens as the player interacts with the game.
+	 * @param  p		    the player
+	 * @param  response the player's response
+	 * @return response the action that has occurred
+	 */
 	
 	public String parseBasicResponses(Player p, String response) {
 		String[] searchKeywords = {"examine", "search"};
@@ -146,9 +191,11 @@ public abstract class Room {
 		String[] attackKeywords = {"attack", "hit"};
 		String[] inventoryKeywords = {"bag", "inventory"};
 	
+		//  players inventory
 		if (util.findKeyword(response, inventoryKeywords) != -1) {
 			response = "You have " + p.getInventory();
 		}
+		//  items found in a room
 		else if (util.findKeyword(response, searchKeywords) != -1) {
 			response = "";
 			if (this.items.length > 0) {
@@ -160,7 +207,9 @@ public abstract class Room {
 			} else {
 				response = "You find nothing";
 			}
-		} else if (util.findKeyword(response, pickUpKeywords) != -1){
+		} 
+		// picking up items
+		else if (util.findKeyword(response, pickUpKeywords) != -1){
 			response = "";
 			if (this.items.length > 0) {
 				response += this.items[0].getInfo() + "\n";
@@ -174,11 +223,13 @@ public abstract class Room {
 				}
 				
 				response += "You picked up " + this.items[0];
-				deleteItem();
+				deleteItems();
 			} else {
 				response = "There is nothing to pick up.";
 			}
-		} else if (util.findKeyword(response, useKeywords) != -1){
+		} 
+		// using items
+		else if (util.findKeyword(response, useKeywords) != -1){
 			if (p.getInventory().size() > 0) {
 				ArrayList<Item> consumables = p.getConsumables();
 				for (Item consumable : consumables) {
@@ -193,7 +244,9 @@ public abstract class Room {
 					}
 				}
 			}
-		} else if (util.findKeyword(response, attackKeywords) != -1){
+		} 
+		// attacking enemies
+		else if (util.findKeyword(response, attackKeywords) != -1){
 			response = "";
 			if (p.getInventory().size() > 0) {
 				Weapon weapon = p.getWeapon();
