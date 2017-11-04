@@ -11,7 +11,7 @@ import floor.Floor;
 import rooms.Room;
 
 /**
- * Used to create person objects that may ____.
+ * A generic person that can move and attack
  * @author Alex Feng
  * @author Raymond Cheung 
  * @since 10/30/17
@@ -51,10 +51,6 @@ public abstract class Person implements Movable, Attacker {
 	
 	//methods
 	
-	/**
-     * @return		the full name of the person
-     */
-	
 
 	public Room getRoom() {
 		return room;
@@ -67,10 +63,6 @@ public abstract class Person implements Movable, Attacker {
 	public void printRoom() {
 		System.out.println(this.room);
 	}
-	
-	/**
-     * @return		the location of the user on the game board
-     */
 	
 	public int getX() {
 		return x;
@@ -100,6 +92,10 @@ public abstract class Person implements Movable, Attacker {
 		return this.inventory;
 	}
 	
+	/**
+	 * Player action of consuming and using the item, deletes the item from inventory
+	 * @param i the targeted item
+	 */
 	public void consumeItem(Item i) {
 		if (i instanceof Consumables) {
 			((Consumables) i).setPerson(this);
@@ -108,6 +104,11 @@ public abstract class Person implements Movable, Attacker {
 		}
 	}
 	
+	/**
+	 * A boolean of whether or not the player has a type of item
+	 * @param item the targeted item
+	 * @return true or false if the player has the type of item
+	 */
 	public boolean hasItem(Item item) {
 		for (Item check : this.getInventory()) {
 			if (check.toString().equals(item.toString())) {
@@ -117,6 +118,11 @@ public abstract class Person implements Movable, Attacker {
 		return false;
 	}	
 	
+	/**
+	 * Gets the item of type item from inventory
+	 * @param item the targeted item
+	 * @return a item of type item
+	 */
 	public Item getItem(Item item) {
 		for (Item check : this.getInventory()) {
 			if (check.toString().equals(item.toString())) {
@@ -126,6 +132,10 @@ public abstract class Person implements Movable, Attacker {
 		return null;
 	}	
 	
+	/**
+	 * Gets all consumable items from the inventory
+	 * @return an ArrayList of consumables
+	 */
 	public ArrayList<Item> getConsumables() {
 		ArrayList<Item> consumables = new ArrayList<>();
 		for (int i = 0; i < inventory.size(); i++) {
@@ -149,6 +159,10 @@ public abstract class Person implements Movable, Attacker {
 		this.hp += amount;
 	}
 	
+	/**
+	 * Get's the players weapon from inventory (as they can only have one)
+	 * @return the player's weapon
+	 */
 	public Weapon getWeapon() {
 		for (Item i : this.getInventory()) {
 			if (i instanceof Weapon) {
@@ -158,11 +172,19 @@ public abstract class Person implements Movable, Attacker {
 		return null;
 	}
 	
+	/**
+	 * A boolean of whether or not the player can attack Person p
+	 * @param p the targeted person
+	 */
 	public boolean canAttack(Person p) {
 		// If the player is in the Enemy's hit range (includes diagonal)
 		return (Math.abs(p.getX() - this.getX()) <= this.getHitRange()) && (Math.abs(p.getY() - this.getY()) <= this.getHitRange());
 	}
 	
+	/**
+	 * Uses the players weapon to attack Person p
+	 * @param p The targeted person
+	 */
 	public void attack(Person p) {
 		Weapon weapon = getWeapon();
 		if (weapon != null) {
@@ -242,11 +264,18 @@ public abstract class Person implements Movable, Attacker {
 		}
 	}
 
+	/**
+	 * Moves the player upstairs to another floor
+	 */
 	public void goUpstairs() {
 		this.z++;
-		floor.removePlayer(this);
-		this.floor = this.getHouse().getHouse()[this.z];
-		floor.placePlayer(this);
+		if (this.z < this.getHouse().getHouse().length) {
+			floor.removePlayer(this);
+			this.floor = this.getHouse().getHouse()[this.z];
+			floor.placePlayer(this);
+		} else {
+			this.z--;
+		}
 	}
 	
 	public int getHitRange() {

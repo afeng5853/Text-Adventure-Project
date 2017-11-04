@@ -11,7 +11,7 @@ import rooms.Room;
 
 /**
  * Floor represents the game board. It contains the multidimensional array of rooms and information about its dimensions.
- * The floor class provides a visual representation of the board and where the player is.
+ * The floor class provides a visual representation of the board, where the player is and the enemies in it
  * @author Alex Feng
  * @author Raymond Cheung 
  * @since 10/30/17
@@ -66,6 +66,12 @@ public class Floor {
 		return rooms[y][x];
 	}
 	
+	/**
+	 * Adds the user to the current room he is in and sets the player's room to the current room
+	 * Also if it's the player being added, set the floor's player to the player (as there is multiple floors)
+	 * and if it's an enemy, add to the enemy list
+	 * @param user the person to be placed
+	 */
 	public void placePlayer(Person user) {
 		rooms[user.getY()][user.getX()].addOccupant(user);
 		user.setRoom(getRoom(user.getX(), user.getY()));
@@ -77,13 +83,17 @@ public class Floor {
 		user.setFloor(this);
 	}
 
+	
+	/**
+	 * Removes the player from the room
+	 * @param user the person to be removed
+	 */
 	public void removePlayer(Person user) {
 		rooms[user.getY()][user.getX()].removeOccupant(user);
 	}
 	
 	/**
      * Displays the map by creating each room with its walls and doors.
-     * @see StringBuilder
      */
 	
 	public void printMap()
@@ -101,15 +111,16 @@ public class Floor {
             for (Room room : row)
             {
             	String roomStr = room.toString();
-                top.append(roomStr.substring(0, 3));
+                top.append(roomStr.substring(0, 3)); // 0-3 top, 3-6, mid, 6-9 bot
                 mid.append(roomStr.substring(3, 6));                                                                                                                                                                                
-                if (x == row.length - 1) {
-                	bot.append(roomStr.substring(6, 9));
+                if (x == row.length - 1) { //if the last row
+                	bot.append(roomStr.substring(6, 9)); //append the bot row
                 }
             }
-            
+            // add new lines
             top.append('\n');
             mid.append('\n');
+            
             System.out.print(top);
             System.out.print(mid);
          

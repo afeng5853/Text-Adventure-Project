@@ -1,5 +1,10 @@
 package Item;
 
+/**
+ * The key to opening any entrance room
+ * @author alex
+ *
+ */
 public class Key implements Item{
 
 	@Override

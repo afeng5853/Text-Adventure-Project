@@ -32,12 +32,19 @@ public abstract class Enemy extends Person {
 
 	public abstract void counterAttack(Player p);
 
-	
+	/**
+	 * Tells if the enemy can attack or not it's focus
+	 * @return whether or not the enemy can attack it's focus within range
+	 */
 	public boolean canAttack() {
 		// If the player is in the Enemy's hit range (includes diagonal)
 		return (Math.abs(focus.getX() - this.getX()) <= this.getHitRange()) && (Math.abs(focus.getY() - this.getY()) <= this.getHitRange());
 	}
 	
+	/**
+	 * Tells if the enemy can attack or not it's player
+	 * @return whether or not the enemy can attack it's player within range
+	 */
 	public boolean canAttack(Person p) {
 		// If the player is in the Enemy's hit range (includes diagonal)
 		return (Math.abs(p.getX() - this.getX()) <= this.getHitRange()) && (Math.abs(p.getY() - this.getY()) <= this.getHitRange());

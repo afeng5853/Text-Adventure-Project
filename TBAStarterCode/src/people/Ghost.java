@@ -10,6 +10,10 @@ public class Ghost extends Enemy {
 		super(x, y, z, hp, hitRange, strength, focus, floor, house);
 	}
 	
+	/**
+	 * Get's the next move of the ghost based on the location of the player
+	 * @param p The player to target
+	 */
 	@Override
 	public int getNextMove(Player p) {
 		// If the player is in the Ghost's hit range (includes diagonal)
@@ -25,6 +29,9 @@ public class Ghost extends Enemy {
 		return -1;
 	}
 
+	/**
+	 * unused
+	 */
 	@Override
 	public void counterAttack(Player p) {
 	}

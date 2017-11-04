@@ -49,7 +49,7 @@ public class GenerationUtilities {
 	}
 	
 	/**
-     * Has a 20% chance to place a random item throughout the rooms of a floor.
+     * Has a x% chance to place a random item throughout the rooms of a floor.
      * @param 	f	the floor to be populated with items
      */
 	
@@ -63,6 +63,10 @@ public class GenerationUtilities {
 		}
 	}
 	
+	/**
+	 * Generates random door combinations
+	 * @return A random door combination
+	 */
 	public static boolean[] randomDoors() {
 		boolean[] doors = new boolean[4];
 		for (int i = 0; i < doors.length; i++) {
@@ -76,6 +80,12 @@ public class GenerationUtilities {
 		return doors;
 	}
 	
+	/**
+	 * Creates a random room
+	 * @param x The location X of the room
+	 * @param y The location Y of the room
+	 * @return a random room
+	 */
 	public static Room randomRoom(int x, int y) {
 		boolean[] randomDoors = randomDoors();
 		Person[] persons = new Person[] {};

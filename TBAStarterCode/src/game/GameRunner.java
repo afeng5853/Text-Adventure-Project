@@ -34,18 +34,17 @@ public class GameRunner {
     public static void main (String[] args)
     {        
         Floor floor = GenerationUtilities.createFloor();
-        AbandonedHouse house = new AbandonedHouse(new Floor[] {floor, new Floor(), new Floor()});
+        AbandonedHouse house = new AbandonedHouse(new Floor[] {floor, new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor()});
         GenerationUtilities.placeRandomItems(floor);
         Player me = new Player(2, 4, 0, 20, 1, floor, house);
         Ghost ghost = new Ghost(0, 0, 0, 1, 1, 2, me, floor, house);
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(ghost);
         
-        
         floor.placePlayer(me);
         floor.placePlayer(ghost);
-        
         me.setRoom(me.getFloor().getRoom(me.getX(), me.getY()));
+        
         printIntro();
         
         boolean gameOn = true;
@@ -69,6 +68,14 @@ public class GameRunner {
 		in.close();
     }
     
+    /**
+     * The enemy's actions
+     * @param floor The current floor where actions are being made
+     * @param p The player playing
+     * @param enemies The enemies on the floor
+     * @param turns Count of turns
+     * @return Whether or not the game should end
+     */
     private static boolean enemyTurn(Floor floor, Player p, ArrayList<Enemy> enemies, int turns) {
     	if (state == IN_PLAY) {
     		for (int i = enemies.size() - 1; i >= 0; i--) {
@@ -98,6 +105,13 @@ public class GameRunner {
 		return true;
     }
     
+    /**
+     * The player's actions
+     * @param floor The current floor where actions are being made
+     * @param me The player playing
+     * @param in The scanner to get player's response
+     * @return
+     */
     private static boolean playerTurn(Floor floor, Player me, Scanner in) {
     	System.out.println("What would you like to do?");
         String response = in.nextLine();
@@ -137,7 +151,11 @@ public class GameRunner {
         
         return true;
     }
-    
+    /**
+     * Returns a boolean whether or not the player is dead
+     * @param me The player to be checked
+     * @return Whether or not the player is dead
+     */
     private static boolean isDead(Player me) {
     	if (me.getHp() <= 0)  {
       	   printDeath();
@@ -147,8 +165,13 @@ public class GameRunner {
     	return false;
     }
     
-    private static boolean isDead(Enemy me) {
-    	if (me.getHp() <= 0)  {
+    /**
+     * Returns a boolean whether or not the enemy is dead
+     * @param e The enemy to be checked
+     * @return Whether or not the enemy is dead
+     */
+    private static boolean isDead(Enemy e) {
+    	if (e.getHp() <= 0)  {
       	   return true;
          }
     	return false;
@@ -170,6 +193,9 @@ public class GameRunner {
 		return response;
 	}
 	
+	/**
+	 * Intro ASCII Art
+	 */
 	private static void printIntro() {
 		System.out.println("                           \n"
 				+ "                                                /\\\n"
@@ -189,7 +215,10 @@ public class GameRunner {
 		System.out.println("You have discovered an abandoned house in the middle of nowhere.");
 	}
 
-		private static void printDeath() {
+	/**
+	 * End ASCII Art
+	 */
+	private static void printDeath() {
 			System.out.println("                uuuuuuu\n"
 	+ "             uu$$$$$$$$$$$uu\n"
 	+ "          uu$$$$$$$$$$$$$$$$$uu\n"

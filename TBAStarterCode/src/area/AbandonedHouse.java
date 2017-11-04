@@ -4,6 +4,11 @@ import floor.Floor;
 import people.Player;
 import rooms.Room;
 
+/**
+ * The AbandonedHouse is an abstracted away array of floors
+ * @author alex
+ *
+ */
 public class AbandonedHouse {
 
 	private Floor[] house;
