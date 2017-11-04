@@ -163,6 +163,14 @@ public abstract class Room {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+	
+	public Floor getFloor() {
+		return floor;
+	}
+
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
 
 	/**
 	 * Places a door, which allows you to move between rooms, and is represented as an empty space on the game board.
@@ -272,7 +280,14 @@ public abstract class Room {
 		return response;
 	}
 	
+	// unique room interactions
 	public abstract String parseResponse(Player p, String response);
+	
+	/**
+	 * Displays the state of a room, the location of the player,
+	 * enemies and the doors that can be accessed.
+	   @return 		the visual representation of a room
+	 */
 	
 	@Override
 	public String toString() {
@@ -319,14 +334,6 @@ public abstract class Room {
 		}
 		
 		return String.valueOf(roomGraphic);
-	}
-
-	public Floor getFloor() {
-		return floor;
-	}
-
-	public void setFloor(Floor floor) {
-		this.floor = floor;
 	}
 }
 
