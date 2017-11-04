@@ -1,6 +1,8 @@
 package people;
 
 import Item.Item;
+import area.AbandonedHouse;
+import floor.Floor;
 
 /**
  * Creates the player. 
@@ -11,14 +13,16 @@ import Item.Item;
 
 public class Player extends Person {
 
-	public Player(int x, int y, int hp) {
-		super(x, y, hp);
+	public Player(int x, int y, int z, int hp, int hitRange, Floor floor, AbandonedHouse house) {
+		super(x, y, z, hp, hitRange, floor, house);
 	}
 
 	@Override
 	public String toString() {
 		return "You";
 	}
+
+	
 
 }
 

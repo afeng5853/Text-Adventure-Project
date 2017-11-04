@@ -7,4 +7,6 @@ public interface Attacker {
 	public Weapon getWeapon();
 	
 	public void attack(Person p);
+	
+	public boolean canAttack(Person p);
 }

@@ -1,7 +1,10 @@
 package floor;
 
+import java.util.ArrayList;
+
 import constants.Constants;
 import game.GenerationUtilities;
+import people.Enemy;
 import people.Person;
 import people.Player;
 import rooms.Room;
@@ -20,12 +23,15 @@ public class Floor {
 	private Room[][] rooms;
 	private int length;
 	private int width;
+	private Player player;
+	private ArrayList<Enemy> enemies;
 	
 	//constructors
 	public Floor(Room[][] rooms) {
 		this.rooms = rooms;
 		this.length = rooms.length;
 		this.width = rooms[0].length;
+		enemies = new ArrayList<>();
 	}
 	
 	/**
@@ -36,11 +42,13 @@ public class Floor {
 		for (int i = 0; i < Constants.WIDTH; i++) {
 			for (int j = 0; j < Constants.LENGTH; j++) {
 				rooms[i][j] =  GenerationUtilities.randomRoom(i, j);
+				rooms[i][j].setFloor(this);
 			}
 		}
 		this.rooms = rooms;
 		this.length = rooms.length;
 		this.width = rooms[0].length;
+		enemies = new ArrayList<>();
 	}
 	
 	//methods
@@ -61,6 +69,12 @@ public class Floor {
 	public void placePlayer(Person user) {
 		rooms[user.getY()][user.getX()].addOccupant(user);
 		user.setRoom(getRoom(user.getX(), user.getY()));
+		if (user instanceof Player) {
+			this.setPlayer((Player) user);
+		} else if (user instanceof Enemy) {
+			this.enemies.add((Enemy) user);
+		}
+		user.setFloor(this);
 	}
 
 	public void removePlayer(Person user) {
@@ -106,4 +120,20 @@ public class Floor {
             x++;
         }
     }
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	public ArrayList<Enemy> getEnemies() {
+		return enemies;
+	}
+
+	public void setEnemies(ArrayList<Enemy> enemies) {
+		this.enemies = enemies;
+	}
 }

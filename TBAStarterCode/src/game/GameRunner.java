@@ -7,6 +7,7 @@ import people.Ghost;
 import people.Person;
 import people.Player;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import area.AbandonedHouse;
@@ -32,14 +33,18 @@ public class GameRunner {
     public static void main (String[] args)
     {        
         Floor floor = GenerationUtilities.createFloor();
+        AbandonedHouse house = new AbandonedHouse(new Floor[] {floor, new Floor(), new Floor()});
         GenerationUtilities.placeRandomItems(floor);
-        Player me = new Player(2, 4, 20);
-        Ghost ghost = new Ghost(0, 0, 40, 1, 2, me);
-        Enemy[] enemies = {ghost};
+        Player me = new Player(2, 4, 0, 20, 1, floor, house);
+        Ghost ghost = new Ghost(0, 0, 0, 40, 1, 2, me, floor, house);
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        enemies.add(ghost);
+        
         
         floor.placePlayer(me);
         floor.placePlayer(ghost);
-        me.setRoom(floor.getRoom(me.getX(), me.getY()));
+        
+        me.setRoom(me.getFloor().getRoom(me.getX(), me.getY()));
         printIntro();
         
         boolean gameOn = true;
@@ -48,20 +53,30 @@ public class GameRunner {
         int turns = 0;
         while(gameOn)
         {
+        	System.out.println("---------------------------------------");
         	if (gameOn) {
-        		enemyTurn(floor, me, enemies, turns);
+        		gameOn = enemyTurn(me.getFloor(), me, enemies, turns);
         	}
-        	gameOn = playerTurn(floor, me, in);
+        	if (gameOn) {
+        		gameOn = playerTurn(me.getFloor(), me, in);
+        	}
         	
+        	
+        	System.out.println("---------------------------------------");
         	turns++;
         }
         
 		in.close();
     }
     
-    private static boolean enemyTurn(Floor floor, Player p, Enemy[] enemies, int turns) {
+    private static boolean enemyTurn(Floor floor, Player p, ArrayList<Enemy> enemies, int turns) {
     	if (state == IN_PLAY) {
-    		for (Enemy enemy : enemies) {
+    		for (int i = enemies.size() - 1; i >= 0; i--) {
+    			Enemy enemy = enemies.get(i);
+    			if (enemy.getHp() <= 0) {
+    				enemies.remove(enemy);
+    				continue;
+    			}
         		int nextMove = enemy.getNextMove(p);
         		if (enemy.canAttack(p)) {
         			enemy.attack(p);
@@ -81,7 +96,6 @@ public class GameRunner {
     }
     
     private static boolean playerTurn(Floor floor, Player me, Scanner in) {
-    	
     	System.out.println("What would you like to do?");
         String response = in.nextLine();
         
@@ -89,7 +103,6 @@ public class GameRunner {
      	   String introResponse = parseIntroResponse(response);
      	   if (introResponse.equals("~ENTERED")) {
      		   state = IN_PLAY;
-     		   floor.printMap();
      		   System.out.println("You hear the door suddenly slam behind you. You are stuck.");
      	   } else {
      		   System.out.println(introResponse);
@@ -107,7 +120,8 @@ public class GameRunner {
             } else if (util.findKeyword(response, "down") != -1) {
          	   movePlayer(floor, me, Constants.DOWN);
             } else {
-         	   System.out.println(me.getRoom().parseResponse(me, response));
+            	floor.printMap();
+            	System.out.println(me.getRoom().parseResponse(me, response));
             }
         }
         if (isDead(me))  {
@@ -201,7 +215,7 @@ public class GameRunner {
 	   user.move(x);
 	   current.placePlayer(user);
 	   current.printMap();
-       System.out.println(user.getRoom().getDesc());
+	   System.out.println(user.getRoom().getDesc());
 	}
 	
 }

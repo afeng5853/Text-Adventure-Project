@@ -1,6 +1,7 @@
 package rooms;
 
 import constants.Constants;
+import floor.Floor;
 import Item.Item;
 import people.Person;
 import people.Player;

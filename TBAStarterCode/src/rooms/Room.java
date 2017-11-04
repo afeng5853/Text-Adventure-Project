@@ -7,11 +7,13 @@ import utilities.util;
 import Item.Item;
 import Item.RubberChicken;
 import Item.TeleportPill;
+import Item.Weapon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import constants.Constants;
+import floor.Floor;
 
 public abstract class Room {
 
@@ -21,6 +23,7 @@ public abstract class Room {
     public boolean explored;
     private int x, y;
     private String desc;
+    private Floor floor;
 
     public Room (boolean[] doors, Person[] occupants, Item[] items, int x, int y, String desc)
     {
@@ -140,35 +143,41 @@ public abstract class Room {
 		String[] searchKeywords = {"examine", "search"};
 		String[] pickUpKeywords = {"take", "pick up", "get"};
 		String[] useKeywords = {"consume", "eat", "use", "swallow"};
+		String[] attackKeywords = {"attack", "hit"};
 	
 		if (util.findKeyword(response, searchKeywords ,0) != -1) {
+			response = "";
 			if (this.items.length > 0) {
 				StringBuilder build = new StringBuilder();
 				for (Item i : items) {
 					build.append(i.toString() + " ");
 				}
-				response =  "You find " + build.toString();
+				response =  "You find the " + build.toString();
 			} else {
 				response = "You find nothing";
 			}
 		} else if (util.findKeyword(response, pickUpKeywords) != -1){
+			response = "";
 			if (this.items.length > 0) {
-				p.addToInventory(this.items[0]);
-				response = "You picked up " + this.items[0];
-				System.out.println(this.items[0].getInfo());
+				response += this.items[0].getInfo() + "\n";
 				// If the player already has a rubber chicken, upgrade it
 				if (this.items[0] instanceof RubberChicken && p.hasItem(this.items[0])) {
-					((RubberChicken) p.getItem(this.items[0])).increaseStrength(2);
-					System.out.println("Your chicken grows larger");
+					p.getWeapon().increaseStrength(1);
+					System.out.println(((RubberChicken) p.getItem(this.items[0])).getStrength());
+					response += "Your chicken grows larger\n";
+				} else {
+					p.addToInventory(this.items[0]);
 				}
+				
+				response += "You picked up " + this.items[0];
 				deleteItem();
 			} else {
 				response = "There is nothing to pick up.";
 			}
 		} else if (util.findKeyword(response, useKeywords) != -1){
+			response = "";
 			if (p.getInventory().size() > 0) {
 				ArrayList<Item> consumables = p.getConsumables();
-				System.out.println(consumables);
 				for (Item consumable : consumables) {
 					if (util.findKeyword(response, consumable.toString()) != -1) {
 						p.consumeItem(consumable);
@@ -177,8 +186,28 @@ public abstract class Room {
 						if (consumable instanceof TeleportPill) {
 							this.removeOccupant(p);
 						}
+						break;
 					}
 				}
+			}
+		} else if (util.findKeyword(response, attackKeywords) != -1){
+			response = "";
+			if (p.getInventory().size() > 0) {
+				Weapon weapon = p.getWeapon();
+				ArrayList<Enemy> enemies = getFloor().getEnemies();
+				for (Enemy e : enemies) {
+					if (weapon != null && p.canAttack(e)) {
+						p.attack(e);
+						if (e.getHp() <= 0) {
+							System.out.println("You killed the ghost!");
+							e.getRoom().removeOccupant(e);
+							e.getFloor().removePlayer(e);
+						}
+						break;
+					}
+				}
+			} else {
+				System.out.println("You can't attack without any weapons!");
 			}
 		} else {
 			response = "";
@@ -234,6 +263,14 @@ public abstract class Room {
 		}
 		
 		return String.valueOf(roomGraphic);
+	}
+
+	public Floor getFloor() {
+		return floor;
+	}
+
+	public void setFloor(Floor floor) {
+		this.floor = floor;
 	}
 }
 

@@ -11,6 +11,7 @@ import people.Person;
 import rooms.Kitchen;
 import rooms.NormalRoom;
 import rooms.Room;
+import rooms.Staircase;
 
 /**
  * Utilities to create the game.
@@ -54,7 +55,7 @@ public class GenerationUtilities {
 	public static void placeRandomItems(Floor f) {
 		for (Room[] row : f.getRooms()) {
 			for (Room room : row) {
-				if (Math.random() < 1) {
+				if (Math.random() < 0.9) {
 					room.addItem(randomItem());
 				}
 			}
@@ -64,8 +65,8 @@ public class GenerationUtilities {
 	public static boolean[] randomDoors() {
 		boolean[] doors = new boolean[4];
 		for (int i = 0; i < doors.length; i++) {
-			int randNum = (int) Math.random() * 2;
-			if (randNum == 0) {
+			double randNum = Math.random();
+			if (randNum > 0.75) {
 				doors[i] = false;
 			} else {
 				doors[i] = true;
@@ -109,7 +110,7 @@ public class GenerationUtilities {
 		NormalRoom room2 = new NormalRoom(new boolean[] {false, true, true, false}, new Person[] {}, new Item[] {}, 0, 1, hallway23);
 		NormalRoom room3 = new NormalRoom(new boolean[] {false, true, false, true}, new Person[] {}, new Item[] {}, 0, 2, hallway23);
 		NormalRoom room4 = new NormalRoom(new boolean[] {false, false, true, true}, new Person[] {}, new Item[] {}, 0, 3, "");
-		NormalRoom room5 = new NormalRoom(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {}, 0, 4, "");
+		Staircase room5 = new Staircase(new boolean[] {false, true, false, false}, new Person[] {}, new Item[] {}, 0, 4, "You found a staircase");
 		NormalRoom room6 = new NormalRoom(new boolean[] {true, false, false, true}, new Person[] {}, new Item[] {}, 1, 0, hallway611);
 		NormalRoom room7 = new NormalRoom(new boolean[] {false, false, false, true}, new Person[] {}, new Item[] {}, 1, 1, "You see something interesting ahead.");
 		NormalRoom room8 = new NormalRoom(new boolean[] {true, false, true, true}, new Person[] {}, new Item[] {}, 1, 2, getGenericResponse());
@@ -138,6 +139,32 @@ public class GenerationUtilities {
 				     			 {room21, room22, room23, room24, room25}};
 		
 		Floor ground = new Floor(groundFloor);
+		
+		room1.setFloor(ground);
+		room2.setFloor(ground);
+		room3.setFloor(ground);
+		room4.setFloor(ground);
+		room5.setFloor(ground);
+		room6.setFloor(ground);
+		room7.setFloor(ground);
+		room8.setFloor(ground);
+		room9.setFloor(ground);
+		room10.setFloor(ground);
+		room11.setFloor(ground);
+		room12.setFloor(ground);
+		room13.setFloor(ground);
+		room14.setFloor(ground);
+		room15.setFloor(ground);
+		room16.setFloor(ground);
+		room17.setFloor(ground);
+		room18.setFloor(ground);
+		room19.setFloor(ground);
+		room20.setFloor(ground);
+		room21.setFloor(ground);
+		room22.setFloor(ground);
+		room23.setFloor(ground);
+		room24.setFloor(ground);
+		room25.setFloor(ground);
 		
 		return ground;
 	}

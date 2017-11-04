@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import Item.Consumables;
 import Item.Item;
 import Item.Weapon;
+import area.AbandonedHouse;
 import constants.Constants;
+import floor.Floor;
 import rooms.Room;
 
 /**
@@ -15,22 +17,30 @@ import rooms.Room;
  * @since 10/30/17
  */
 
-public abstract class Person implements Movable, Attacker{
+public abstract class Person implements Movable, Attacker {
 	//fields
 
 	private Room room;
 	private int x;
 	private int y;
+	private int z;
 	private ArrayList<Item> inventory;
 	private int hp;
+	private int hitRange;
+	private Floor floor;
+	private AbandonedHouse house;
 	
 	//constructor
-	public Person(int x, int y, int hp) {
+	public Person(int x, int y, int z, int hp, int hitRange, Floor floor, AbandonedHouse house) {
 
 		this.setX(x);
 		this.setY(y);
+		this.setZ(z);
 		this.inventory = new ArrayList<>();
 		this.setHp(hp);
+		this.setHitRange(hitRange);
+		this.setFloor(floor);
+		this.setHouse(house);
 	}
 	
 	/**
@@ -148,10 +158,15 @@ public abstract class Person implements Movable, Attacker{
 		return null;
 	}
 	
+	public boolean canAttack(Person p) {
+		// If the player is in the Enemy's hit range (includes diagonal)
+		return (Math.abs(p.getX() - this.getX()) <= this.getHitRange()) && (Math.abs(p.getY() - this.getY()) <= this.getHitRange());
+	}
+	
 	public void attack(Person p) {
 		Weapon weapon = getWeapon();
 		if (weapon != null) {
-			System.out.println(this + " attack with the " + weapon + "dealing " + weapon.getStrength() + " damage");
+			System.out.println(this + " attack with the " + weapon + " dealing " + weapon.getStrength() + " damage");
 			p.addHp(-1 * weapon.getStrength());
 		} else if (this instanceof Enemy) {
 			int enemyStrength = ((Enemy) this).getStrength();
@@ -225,6 +240,45 @@ public abstract class Person implements Movable, Attacker{
 		} else {
 			System.out.println("????????error????????");
 		}
+	}
+
+	public void goUpstairs() {
+		this.z++;
+		floor.removePlayer(this);
+		this.floor = this.getHouse().getHouse()[this.z];
+		floor.placePlayer(this);
+	}
+	
+	public int getHitRange() {
+		return hitRange;
+	}
+
+	public void setHitRange(int hitRange) {
+		this.hitRange = hitRange;
+	}
+
+	public Floor getFloor() {
+		return floor;
+	}
+
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
+
+	public int getZ() {
+		return z;
+	}
+
+	public void setZ(int z) {
+		this.z = z;
+	}
+
+	public AbandonedHouse getHouse() {
+		return house;
+	}
+
+	public void setHouse(AbandonedHouse house) {
+		this.house = house;
 	}
 	
 }

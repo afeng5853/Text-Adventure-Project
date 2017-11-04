@@ -1,6 +1,7 @@
 package rooms;
 
 import Item.Item;
+import floor.Floor;
 import people.Person;
 import people.Player;
 import utilities.util;

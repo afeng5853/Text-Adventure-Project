@@ -3,6 +3,8 @@ package people;
 import java.util.ArrayList;
 
 import Item.Item;
+import area.AbandonedHouse;
+import floor.Floor;
 import rooms.Room;
 
 /**
@@ -15,14 +17,12 @@ import rooms.Room;
  */
 
 public abstract class Enemy extends Person {
-	private int hitRange;
 	private int strength;
 	private Person focus;
 	
 	//constructor
-	public Enemy(int x, int y, int hp, int hitRange, int strength, Person focus) {
-		super(x, y, hp);
-		this.setHitRange(hitRange);
+	public Enemy(int x, int y, int z, int hp, int hitRange, int strength, Person focus, Floor floor, AbandonedHouse house) {
+		super(x, y, z, hp, hitRange, floor, house);
 		this.setStrength(strength);
 		this.focus = focus;
 	}
@@ -32,15 +32,6 @@ public abstract class Enemy extends Person {
 
 	public abstract void counterAttack(Player p);
 
-
-	public int getHitRange() {
-		return hitRange;
-	}
-
-
-	public void setHitRange(int hitRange) {
-		this.hitRange = hitRange;
-	}
 	
 	public boolean canAttack() {
 		// If the player is in the Enemy's hit range (includes diagonal)
