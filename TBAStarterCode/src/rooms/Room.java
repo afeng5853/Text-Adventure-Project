@@ -233,7 +233,6 @@ public abstract class Room {
 				// If the player already has a rubber chicken, upgrade it
 				if (this.items[0] instanceof RubberChicken && p.hasItem(this.items[0])) {
 					p.getWeapon().increaseStrength(1);
-					System.out.println(((RubberChicken) p.getItem(this.items[0])).getStrength());
 					response += "Your chicken grows larger\n";
 				} else {
 					p.addToInventory(this.items[0]);

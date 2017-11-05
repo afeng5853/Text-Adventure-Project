@@ -44,6 +44,6 @@ public class Orange extends Consumables {
 	@Override
 	public void useItem() {
 		this.getPerson().addHp(Orange.HP_RESTORE);
-		System.out.println("Your health has been restored by " + Orange.HP_RESTORE + "\n" + "You have" + this.getHp() + " hp left!");
+		System.out.println("Your health has been restored by " + Orange.HP_RESTORE);
 	}
 }

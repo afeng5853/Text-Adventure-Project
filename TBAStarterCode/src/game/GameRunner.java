@@ -43,7 +43,7 @@ public class GameRunner {
         AbandonedHouse house = new AbandonedHouse(new Floor[] {floor, new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor(), new Floor()});
         GenerationUtilities.placeRandomItems(floor);
         Player me = new Player(2, 4, 0, 20, 1, floor, house);
-        Ghost ghost = new Ghost(0, 0, 0, 1, 1, 2, me, floor, house);
+        Ghost ghost = new Ghost(0, 0, 0, 25, 1, 2, me, floor, house);
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(ghost);
         
@@ -173,6 +173,9 @@ public class GameRunner {
     	if (me.getHp() <= 0)  {
       	   printDeath();
       	   System.out.println("You've died. Game over.");
+      	   if (me.getInventory().size() == 0) {
+      		   System.out.println("It seems like you're new to this game, try searching for items.");
+      	   }
       	   return true;
          }
     	return false;
